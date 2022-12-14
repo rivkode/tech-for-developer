@@ -11,8 +11,10 @@
 > 8bits = 1 byte  
 > 아래는 비트 표현
 > 
-> i8, i16, i32, i64, i128, and isize. **Signed - i**<br>
-> u8, u16, u32, u64, u128, and usize. **Unsigned - u**
+> (**Signed - i**, **Unsigned - u**)
+> 
+> i8, i16, i32, i64, i128, and isize. <br>
+> u8, u16, u32, u64, u128, and usize. 
 > 
 > i8 범위 [-16 ~ 15]  
 > u16 범위 [0 ~ 65,536]  
@@ -25,3 +27,15 @@
 > 
 > 32비트일 경우 isize -> i32
 > 
+
+러스트의 경우 타입을 꼭 명시하지 않아도 된다.
+
+
+```
+fn main() {
+    let space = ' '; // A space inside ' ' is also a char
+    let other_language_char = 'Ꮔ'; // Thanks to Unicode, other languages like Cherokee display just fine too
+    let cat_face = '😺'; // Emojis are chars too
+    }
+```
+
