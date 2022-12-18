@@ -69,3 +69,17 @@ fn main() {
     println!("My name is {} and my age is {}", my_name, give_age()); // 위와 같은 결과
 ```
 
+```
+fn main() {
+    let my_city = "Seoul";
+    let year = 2022;
+    let population = 60_000_000;
+    println!(
+        "The city if {city} in {year} had a population of {population},
+        "The city if {0} in {1} had a population of {2}. I love {0} !,
+        city = my_city,
+        year = year,
+        population = population
+        );
+}
+```
