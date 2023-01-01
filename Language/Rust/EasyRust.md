@@ -143,4 +143,23 @@ fn main() {
 }
 ```
 
+## 함수 동작 원리
+
+함수 선언 방법
+
+```
+fn main() {
+    println!("Hello, world!");
+
+    another_function();
+}
+
+fn another_function() {
+    println!("Another function.");
+}
+//Hello, world!
+//Another function.
+```
+
+함수 매개변수
 
