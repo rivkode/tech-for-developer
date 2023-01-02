@@ -163,3 +163,15 @@ fn another_function() {
 
 함수 매개변수
 
+```
+fn main() {
+    another_function(5);
+}
+
+fn another_function(x: i32) {
+    println!("The value of x is: {}", x);
+}
+```
+
+another_function의 선언은 x로 명명된 하나의 매개변수를 갖습니다.
+반드시 각 매개변수의 타입을 정의해야한다. 이는 rust를 설계하며 내려야 하는 중요한 결정이다.
