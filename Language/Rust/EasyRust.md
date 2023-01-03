@@ -143,6 +143,64 @@ fn main() {
 }
 ```
 
+## if/else/loop
+
+```
+fn main() {
+    let n = 5;
+    
+    if n < 0 {
+        println!{"{} 는 음수입니다.", n};
+    } else if n > 0 {
+        println!{"{} 는 양수입니다.", n};
+    } else {
+        println!{"{} 는 0 입니다.", n};
+    }
+```
+
+if-else를 통한 분기문은 다른 언어들과 유사하다. 그들 대다수와는 다르게 boolean 조건부를 괄호안에 넣을 필요가 없고, 각 조건에는 블럭이 뒤따른다. if-else 조건은 표현문이고, 모든 분기는 반드시 같은 타입을 반환해야 한다.
+
+```
+fn main() {
+    let mut count = 0u32;
+
+    println!("Let's count until infinity!");
+
+    // 무한 루프
+    loop {
+        count += 1;
+
+        if count == 3 {
+            println!("three");
+
+            // 이 순차의 나머지를 생략한다.
+            continue;
+        }
+
+        println!("{}", count);
+
+        if count == 5 {
+            println!("OK, that's enough");
+
+            // 루프를 벗어난다.
+            break;
+        }
+    }
+}
+
+Let's count until infinity!
+1
+2
+three
+4
+5
+OK, that's enough
+```
+
+Rust가 제공하는 loop키워드는 무한 반복을 뜻한다.
+
+break 문은 언제든 루프에서 빠져나올 수 있도록 하며, continue 문은 반복문의 남은 부분을 생략하고 다음을 새로 시작을 할 때 사용한다.
+
 ## 함수 동작 원리
 
 함수 선언 방법
@@ -175,3 +233,4 @@ fn another_function(x: i32) {
 
 another_function의 선언은 x로 명명된 하나의 매개변수를 갖습니다.
 반드시 각 매개변수의 타입을 정의해야한다. 이는 rust를 설계하며 내려야 하는 중요한 결정이다.
+
