@@ -10,6 +10,7 @@ fn main() {
     println!("The vaule of x is: {}", x);
     x = 6;
     println!("The vaule of x is: {}", x);
+}
 ```
 
 위와 같이 하게 되면 컴파일에러가 발생합니다. 기본 변수는 불변성인데 변수 x에 두 번째로 값을 재할당

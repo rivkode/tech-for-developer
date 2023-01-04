@@ -522,3 +522,37 @@ byte로 표현 가능한 모든 데이터
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7cfc479e-2c45-48bb-9043-86480b0fb06e/Untitled.png)
 
 HTTP 메세지 구조 - 시작줄, 헤더, 바디
+
+## HTTP 메서드 속성
+
+![](https://user-images.githubusercontent.com/109144975/210503306-711f53c0-d283-442a-a88a-8d0d87a29e11.png)
+
+**안전**
+
+호출해도 리소스 변경하지 않는다.
+get만 안전, put, post, patch, delete는 안전하지 않음
+
+**멱등**
+
+한 번 호출하든 두 번 호출하든 100번 호출하든 결과가 똑같다.
+
+자동복구 메커니즘 사용시 - 서버가 timeout 등으로 정상 응답을 못주었을 때, 클라이언트가 같은 요청을
+다시 해도 되는가 ? 판단근거
+멱등 메서드
+
+GET
+PUT
+DELETE
+
+멱등이 아닌 메서드
+
+POST
+
+두 번 호출하면 같은 결제가 중복해서 발생할 수 있기 때문
+
+**캐시가능**
+
+응답 결과 리소스를 캐시해서 사용해도 되는가 ?
+
+GET, HEAD 정도만 캐시로 사용
+
