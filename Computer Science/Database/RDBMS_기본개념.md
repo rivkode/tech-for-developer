@@ -350,3 +350,38 @@ select * from city where CountryCode = 'KOR' and (Population between 1000000 and
 select * from city where CountryCode = 'KOR' and (Population >= 1000000 and Population <= 5000000);
 ```
 
+국가코드가 'KOR' 혹은 'ESP' 혹은 'USA' 혹은 'SVK' 이고 인구수가 1000000 에서 3000000 사이인 레코드를 city 테이블에서 찾으시오.
+
+```sql
+select * from city where CountryCode in ('KOR', 'ESP', 'USA', 'SVK') and Population between 1000000 and 3000000;
+```
+
+**결과정렬 ORDER BY**
+- SELECT 문의 결과값을 특정한 컬럼을 기준으로 오름차순/내림차순으로 정렬해서 표시
+- select * from 테이블명 where 조건절 order by 컬럼명 asc(오름차순)/desc(내림차순), ...
+- 기본값은 오름차순 정렬임(asc는 생략 가능)/여러 개의 컬럼을 나열하면 순서대로 정렬
+
+국가코드가 'KOR'인 도시를 찾아 인구수의 역순으로 표시하시오.
+
+```sql
+select * from city where CountryCode = 'KOR' order by Population desc;
+```
+
+city 테이블에서 국가코드와 인구수를 출력하라. 정렬은 국가코드별로 오름차순으로, 동일한 코드(국가) 안에서는 인구 수의 역순으로 표시하시오.
+
+```sql
+select CountryCode, Population from city order by CountryCode (asc 생략가능), Population desc;
+```
+
+**정리**
+
+중복성 제거 (distinct)
+- 결과값이 특정컬럼이 중복되어 표현될 때 동일한 값은 한 번만 표시
+
+논리 연산자 (and, or, not, in, between)
+- 조건절의 조건식을 논리식으로 표현하는 방법 제공
+
+결과값 정렬 (order by)
+- 결과값을 특정 컬럼을 기준으로 오름차순(asc)/ 내림차순(desc) 정렬해서 표현
+- 여러 개의 경우 컬럼 나열된 순서로 적용 (1차정렬, 2차 정렬, ...)
+
