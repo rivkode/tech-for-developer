@@ -44,5 +44,10 @@
 
 > `외부참조 키(FK)` : 해당 엔티티와 관련된 데이터를 갖고 있는 프로터디가 아닌 다른 엔티티와의 관계를 설정하기 위한 키
 
+<br>
 
+<br>
 
+<br>
+
+![](https://user-images.githubusercontent.com/109144975/218385508-3a324f20-c6bb-4a8a-b865-7afa6dc19dc9.png)
