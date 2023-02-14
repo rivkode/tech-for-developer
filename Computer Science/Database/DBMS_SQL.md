@@ -870,3 +870,74 @@ select distinct CountryCode from city where Population > 5000000 and CountryCode
 - 단일행, 다중행(IN, ANY, ALL, EXISTS), 다중컬럼
 
 집합연산 : 두개 이상의 쿼리결과에 대한 합집합/교집합/차입합 연산
+
+## SQL DDL -1
+
+### 스키마 정의
+
+DDL (Data Definition Language)
+- 데이터베이스와 테이블을 CRUD(Create, Read, Update, Delete)
+- 테이블에 대한 정보는 메타데이터로 데이터 사전에 저장, 관리 된다.
+
+데이터베이스 생성
+- `CREATE DATABASE 데이터베이스명;`
+
+테이블 생성
+- `CREATE TABLE 테이블명 (컬럼명1 데이터타입(크기), 컬럼명2 ...)`
+
+SampleDB 데이터베이스를 정의하고 생성하시오.
+
+컬럼으로 이름(Name), 주소(Address), 전화번호(Telephone)를 가지는 BusinessCard 테이블을 정의하고 생성하시오. (단, 이름, 주소, 전화번호는
+문자열(Varchar)) 최대길이 255자로 지정
+
+```sql
+create database sampleDB;
+create table BusinessCard (Name varchar(255), Address varchar(255), Telephone varchar(255));
+insert into BusinessCard values ('Bob', 'seocho-dong 123', '123-1232');
+```
+
+### 자료형
+
+- 정수형(부호있음 / 부호없음)
+  - TINYINT(-128 ~ 127 / 0 ~ 255)
+  - INT(-21억 ~ 21억 / 0 ~ 43억)
+  - BIGINT(-9경 ~ 9경 / 0 ~ 18경)
+
+- 실수형(길이, 소수점 이하 자리수)
+  - FLOAT(size, d)
+  - DOUBLE(size, d)
+  - DECIMAL(size, d) - 십진수
+
+- 문자열
+  - CHAR 고정길이 문자열(최대 255자)
+  - VARCHAR 가변길이 문자열(최대 255자)
+
+- TEXT 문자열
+  - TEXT (최대 65,535자)
+  - MEDIUMTEXT (최대 16,777,215자)
+  - LONGTEXT (최대 43억자)
+
+- BLOB (Binary Large Object) - `이미지, 동영상등 바이너리 데이터를 표현`
+  - BLOB (최대 65,535 바이트)
+  - MEDIUMBLOB (최대 16,777,215 바이트)
+  - LARGEBLOB (최대 43억 바이트)
+
+- 시간관련
+  - DATE (YYYY-MM-DD)
+  - TIME (HH:MI:SS)
+  - DATETIME (YYYY-MM-DD HH:MI:SS)
+
+### 제약조건
+
+제약조건
+- 입력 데이터의 제약조건을 걸어 해당되지 않는 데이터는 입력되지 않음
+
+|          |                      |
+|----------|----------------------|
+| NOT NULL | 데이터가 NULL 값을 받아들이지 않음|
+| UNIQUE   | 테이블에 동일한 값이 입력되어 있을 경우 받아들이지 않음 |
+| PRIMARY KEY | 기본키 제약조건(UNIQUE, NOT NULL조건)|
+| FOREIGN KEY | 외래키 제약조건|
+| CHECK | 입력값 체크 (예 : AGE >= 0)|
+| DEFAULT | 컬럼값이 입력되지 않으면 기본값을 입력|
+
