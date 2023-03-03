@@ -531,7 +531,7 @@ Content-Length: 34
 
 요청 데이터
 ```http request
-POST /members/100 HTTP/1.1
+POST /members HTTP/1.1
 Content-Type: application/json
 
 {
@@ -577,6 +577,8 @@ Location: /members/100
    - 예) 주문에서 결제완료 -> 배달시작 -> 배달완료 처럼 단순히 값 변경을 넘어 프로세스의 상태가 변경되는 경우
    - POST의 결과로 새로운 리소스가 생성되지 않을 수도 있음
    - 예) POST/orders/{orderId}/start-delivery **(컨트롤 URI)**
+     - orders/{orderId}, method = POST 의 경우 주문을 생성하는것과 같이 이상적으로 URI를 설계할 수 있지만
+     - 그것이 어려울 경우 위의 예시와 같이 동사를 활용하여 **컨트롤 URI**를 사용해야할 수도 있음
 3. 다른 메서드로 처리하기 애매한 경우
    - JSON으로 조회 데이터를 넘겨야 하는데, GET 메서드를 사용하기 어려운 경우
    - 애매하면 POST
@@ -584,42 +586,85 @@ Location: /members/100
 
 ### HTTP 메서드 PUT, PATCH, DELETE
 
+### PUT
+- 리소스를 대체
+  - 리소스가 있으면 대체
+  - 리소스가 없으면 생성
+  - 쉽게 이야기 해서 덮어버림, 완전히 대체하므로 속성값 필드가 삭제하고 덮어버릴 수도 있음
+- 중요! 클라이언트가 리소스를 식별
+  - **POST와 차이점 : 클라이언트가 리소스 위치를 알고 정확히 URI 지정**
+
+```http request
+PUT /members/100 HTTP/1.1
+Content-Type: application/json
+
+{
+  "username" : "hun"
+  "age" : 20
+}
+```
+
+### PATCH
+- 리소스 부분 변경
+
+```http request
+PATCH /members/100 HTTP/1.1
+Content-Type: application/json
+
+{
+  "age" : 50
+}
+```
+- age만 50으로 변경
+
+### PATCH
+- 리소스 제거
+
+```http request
+DELETE /members/100 HTTP/1.1
+Host: localhost:8080
+```
+
+- members/100 레코드 삭제
 
 
 ## HTTP 메서드 속성
 
+- 안전
+- 멱등
+- 캐시가능
+
+
 ![](https://user-images.githubusercontent.com/109144975/210503306-711f53c0-d283-442a-a88a-8d0d87a29e11.png)
 
-**안전**
+### 안전
 
-호출해도 리소스 변경하지 않는다.
-get만 안전, put, post, patch, delete는 안전하지 않음
+- 호출해도 리소스 변경하지 않는다.
+- get만 안전, put, post, patch, delete는 안전하지 않음
 
-**멱등**
+### 멱등
 
-한 번 호출하든 두 번 호출하든 100번 호출하든 결과가 똑같다.
+- 한 번 호출하든 두 번 호출하든 100번 호출하든 결과가 똑같다.
+- 자동복구 메커니즘 사용시 - 서버가 timeout 등으로 정상 응답을 못주었을 때, 클라이언트가 같은 요청을 다시 해도 되는가 ? 판단근거
 
-자동복구 메커니즘 사용시 - 서버가 timeout 등으로 정상 응답을 못주었을 때, 클라이언트가 같은 요청을
-다시 해도 되는가 ? 판단근거
-멱등 메서드
+**멱등 메서드**
+- GET
+- PUT
+- DELETE
 
-GET
-PUT
-DELETE
-
-멱등이 아닌 메서드
+**멱등이 아닌 메서드**
 
 POST
+- 두 번 호출하면 같은 결제가 중복해서 발생할 수 있기 때문
 
-두 번 호출하면 같은 결제가 중복해서 발생할 수 있기 때문
+### 캐시가능
 
-**캐시가능**
+- 응답 결과 리소스를 캐시해서 사용해도 되는가 ?
+- GET, HEAD 정도만 캐시로 사용
 
-응답 결과 리소스를 캐시해서 사용해도 되는가 ?
+## HTTP 메서드 활용
 
-GET, HEAD 정도만 캐시로 사용
-
-## 클라이언트에서 서버로 데이터 전송
+### 클라이언트에서 서버로 데이터 전송
 
 4가지 상황
 
@@ -700,9 +745,9 @@ Content-Type: application/json
 ```
 
 서버 to 서버
-앱 클라이언트(아이폰, 안드로이드)
+- 앱 클라이언트(아이폰, 안드로이드)
 웹 클라이언트 - React, Vuejs 같은 웹 클라이언트와 데이터 전송
-Put, Post, Patch - 메시지 바디를 통해 데이터 전송
+- Put, Post, Patch - 메시지 바디를 통해 데이터 전송
 Get 조회
 Content-Type : application/json 을 주로 사용(사실상 표준)
 
