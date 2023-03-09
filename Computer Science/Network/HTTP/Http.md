@@ -1,6 +1,6 @@
-# 인터넷 네트워크
+# 인터넷 네트워크 HTTP
 
-## 인터넷 통신
+# 인터넷 통신이란 ?
 
 
 컴퓨터 두대가 바로 옆에 붙어있다면 ?
@@ -18,7 +18,7 @@
 ## IP(internet protocol)
 
 
-### IP - internetprotocol 인터넷 규칙
+## IP - internetprotocol 인터넷 규칙
 
 IP의 역할
 
@@ -39,7 +39,7 @@ IP 패킷이란?
 
 <br>
 
-### IP프로토콜의 한계
+## IP프로토콜의 한계
 
 비연결성
 - 받는 수신측이 서비스 불능 상태여도 그냥 보냄
@@ -100,7 +100,7 @@ TCP 특징 (전송 제어 프로토콜)
 - 이 연결은 가상연결임 (개념적)
 - 위와같은 것들이 가능한 이유는 TCP 패킷에 정보들이 다 있기 때문임 (출발지 - IP, PORT번호 목적지 - IP, PORT 번호, 데이터 등등)
 
-### UDP 특징 (사용자 데이터그램 프로토콜)
+## UDP 특징 (사용자 데이터그램 프로토콜)
 
 
 기능이 많지 않음 IP에서 Port번호 , 체크섬(해당 데이터가 맞는지 검증하는 것) 정도만 추가된 것임 (3 way hand shaking 없음, 속도를 줄이기 위해)
@@ -163,7 +163,7 @@ DNS를 사용하지 않을때의 두가지 어려움
 ## URI(Uniform Resource Identifier)
 
 
-### URI - 리소스를 식별하는 방법
+## URI - 리소스를 식별하는 방법
 
 - Uniform : 리소스 식별하는 통일된 방식
 - Resource : 자원, URI로 식별할 수 있는 모든 것
@@ -180,7 +180,7 @@ URI라는 큰 개념안에 URL, URN이 있습니다.
 - URN - Resource Name - 리소스의 이름 - 이종훈 그 자체
 
 
-### URL 전체 문법
+## URL 전체 문법
 
 - scheme://[userinfo@]host[:port][/path][?query][#fragment]
 - https://www.google.com:443/search?q=hello&hl=ko
@@ -214,7 +214,7 @@ URL을 살펴보겠습니다. 만약 google에 hello라고 검색하면 어떻�
 
 
 
-### 웹 브라우저 요청 흐름
+## 웹 브라우저 요청 흐름
 
 `https://www.google.com/search?q=hello&hl=ko`
 
@@ -281,7 +281,7 @@ TCP가 안정적이고 좋은것이 아닌가 ?
 - 중요한 것은 http1.1을 잘 이해하는 것 - 대부분의 기능이 있기 때문
 
 
-### 클라이언트 서버 구조
+## 클라이언트 서버 구조
 
 HTTP 특징
 
@@ -295,7 +295,7 @@ HTTP 특징
 
 <br>
 
-### 무상태 프로토콜
+## 무상태 프로토콜
 
 > 클라이언트의 상태를 유지 하는지, 하지 않는지 여부
 
@@ -305,7 +305,7 @@ HTTP 특징
 
 <br>
 
-### Stateful, Stateless 차이
+## Stateful, Stateless 차이
 
 - stateful은 서버가 클라이언트 `상태를 보존`
 - stateless는 서버가 클라이언트 `상태를 보존하지 않음`
@@ -337,7 +337,7 @@ stateless를 고객과 점원의 예시로 들어보겠습니다.
 - 예를들어 이벤트 페이지에서는 장비만 늘리면 되는 것임
 - stateless 단점 - 한번 보낼때 데이터를 너무 많이 보내야 함
 
-### 비 연결성(connectionless)
+## 비 연결성(connectionless)
 
 > 클라이언트와 연결을 유지 하는지 하지 않는지 여부
 
@@ -373,7 +373,7 @@ stateless를 고객과 점원의 예시로 들어보겠습니다.
 
 <br>
 
-## HTTP 메세지
+# HTTP 메세지
 
 HTTP 메세지에 모든 것을 전송
 - HTML, TEXT
@@ -395,7 +395,7 @@ HTTP메세지
 
 <br>
 
-### 시작라인
+## 시작라인
 
 **요청 메세지**
 ```http request
@@ -438,7 +438,7 @@ Content-Length: 3424
 
 <br>
 
-### HTTP 메서드
+## HTTP 메서드
 
 회원 정보 관리 API를 만들어보자
 - 회원 목록 조회
@@ -486,7 +486,7 @@ Content-Length: 3424
 - PATCH : 리소스 부분 변경
 - DELETE : 리소스 삭제
 
-### GET
+## GET
 - 리소스 조회
 - 서버에 전달하고 싶은 데이터는 query(쿼리 파라미터, 쿼리 스트링)를 통해서 전달
 
@@ -521,7 +521,7 @@ Content-Length: 34
 ```
 
 
-### POST
+## POST
 - 요청데이터 처리
 **- 메세지 바디를 통해 서버로 요청 데이터 전달**
 - 서버는 요청 데이터를 **처리**
@@ -634,13 +634,14 @@ Host: localhost:8080
 - 멱등
 - 캐시가능
 
+HTTP 메서드 속성 관련
 
 ![](https://user-images.githubusercontent.com/109144975/210503306-711f53c0-d283-442a-a88a-8d0d87a29e11.png)
 
 ### 안전
 
 - 호출해도 리소스 변경하지 않는다.
-- get만 안전, put, post, patch, delete는 안전하지 않음
+- get만 안전(값이 변하지 않으므로), put, post, patch, delete는 안전하지 않음
 
 ### 멱등
 
@@ -650,7 +651,9 @@ Host: localhost:8080
 **멱등 메서드**
 - GET
 - PUT
+  - 결과를 대체한다. 덮어버리기 때문에 여러번해도 최종 결과는 같다.
 - DELETE
+  - 결과를 삭제한다. 같은 요청을 여러번 해도 삭제된 결과는 같다.
 
 **멱등이 아닌 메서드**
 
@@ -858,5 +861,491 @@ PUT으로 신규 데이터를 등록하면 리소스 URI를 다 알고 등록해
 > 컨트롤 URI를 넣어 사용한다.
 
 
+# HTTP 상태 코드
 
+- 1XX (Informational) : 요청이 수신되어 처리중
+- 2XX (Successful) : 요청 정상 처리
+- 3XX (Redirection) : 요청을 완료하려면 추가 행동이 필요
+- 4XX (Client Error) : 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행 불가
+- 5XX (Server Error) : 서버 오류, 서버가 정상 요청을 처리하지 못함
+
+## 2XX 성공
+
+- 200 OK
+- 201 Created (리소스 생성), post
+- 202 Accepted
+- 204 No content
+
+## 200 OK
+
+요청 성공
+
+Get 요청 -> Start line에 응답 Header에 200 OK 와 Body에 해당 내용을 실어서 보냄
+
+![image](https://user-images.githubusercontent.com/109144975/223975891-993a0812-6d0e-4e48-977b-0589fcee3c86.png)
+
+
+## 201 Created
+
+요청 성공해서 새로운 리소스가 생성됨
+
+Post 요청 -> 서버에서 자원을 생성함
+
+![image](https://user-images.githubusercontent.com/109144975/223976503-707a0faa-056a-4778-9796-dd89ddfea9a1.png)
+
+## 202 Accepted
+
+요청 접수되었으나 처리 완료되지 않음
+
+- 배치 처리 같은 곳 사용
+
+## 204 No content
+
+서버가 요청 성공수행 하였지만, 응답 페이로드 본문에 보낼 데이터가 없음
+
+- 예) 웹 문서 편집기에서 save 버튼
+- save 버튼의 결과로 아무 내용이 없어도 된다
+- save 버튼 눌러도 같은 화면 유지해야 함
+
+
+## 3XX - 리다이렉션
+
+- 300 Multiple Choices (거의 안씀)
+- 301 Moved Permanently
+- 302 Found
+- 303 See Other
+- 304 Not Modified
+- 307 Temporary Redirect
+- 308 Permanent Redirect 
+
+
+## 리다이렉션 이해
+
+- 웹 브라우저는 3xx 응답의 결과에 Location 헤더가 있으면, Location 위치로 자동 이동
+  (리다이렉트)
+
+
+- 현재 /event URL을 쓰지 않는 상황 -> new-event로 변경함
+- 기존 고객들은 /event로 들어올 수 도 있으므로 리다이렉팅을 시킴
+- 상태코드 : 301로 하며 Location 을 /new-event로 한다
+- 그렇게 되면 클라이언트는 /event -> /new-event로 변경하여 접속한다
+- 이렇게 되면 정상 요청을 서버로 하였으므로 서버는 200 OK의 상태코드를 반환하며
+- 올바른 이벤트 페이지 html 코드를 반환한다.
+
+![image](https://user-images.githubusercontent.com/109144975/223980008-fc449f79-b758-4b17-8ce0-a92e7ee09f31.png)
+
+### 종류
+
+- 영구 리다이렉션 - 
+
+영구 리다이렉션 - 특정 리소스의 URI가 영구적으로 이동
+• 예) /members -> /users
+• 예) /event -> /new-event
+• 일시 리다이렉션 - 일시적인 변경
+• 주문 완료 후 주문 내역 화면으로 이동
+• PRG: Post/Redirect/Get
+• 특수 리다이렉션
+• 결과 대신 캐시를 사용
+
+![image](https://user-images.githubusercontent.com/109144975/223986662-47cae0b0-9503-481f-963e-842bd86fe144.png)
+
+
+![image](https://user-images.githubusercontent.com/109144975/223986761-107a3a67-c437-4d1e-b698-f2078a49df09.png)
+
+- 일시적인 리다이렉션
+
+302, 307, 303
+
+- 302 Found
+  - 리다이렉트시 요청 메서드가 GET으로 변하고, 본문이 제거될 수 있음(MAY)
+- 307 Temporary Redirect
+  - 302와 기능은 같음
+  - 리다이렉트시 요청 메서드와 본문 유지(요청 메서드를 변경하면 안된다. MUST NOT)
+- 303 See Other
+  - 302와 기능은 같음
+  - 리다이렉트시 요청 메서드가 GET으로 변경
+
+## PRG : Post/Redirect/Get
+
+- Post로 주문 후에 웹 브라우저를 새로고침 하면 ?
+- 새로고침은 다시 요청
+- 중복 주문이 될 수 있음
+
+PRG X
+
+![image](https://user-images.githubusercontent.com/109144975/223987501-4e71f141-8b2a-44be-a8cb-5b2bf394b0fe.png)
+
+주문 후 결과 화면에서 새로고침을 하게되면 마지막 요청이 Post/order 이었으므로 이 요청을 다시 서버에게 보내게 됨
+
+이와 같은 오류를 방지하기 위해 일시적인 리다이렉션을 하게 됨
+
+- POST로 주문 후에 새로 고침으로 인한 주문 방지
+- POST로 주문후에 주문 결과 화면을 GET 메서드로 리다이렉트 (Get으로 하게 되면 멱등이므로 서버에는 아무 영향 X)
+- 새로고침해도 결과 화면을 GET으로 조회
+- 중복 주문 대신에 결과 화면만 GET으로 다시 요청
+
+PRG 사용
+
+![image](https://user-images.githubusercontent.com/109144975/223989327-da9709b9-a9aa-4a18-8158-0cb1d768c44a.png)
+
+- 주문 완료 후 302 FOUND와 Location 정보를 넘겨줌
+- 3XX 이므로 클라이언트는 자동 리다이렉트를 함
+- GET 메서드로 변후 주문을 요청하므로 주문 결과 화면을 서버로 요청
+- 주문 완료 200 OK 를 클라이언트로 보냄
+- 이때 새로고침을 하여도 GET 메소드이므로 서버에는 아무 영향 X 결과화면만 다시 요청(5번으로 이동)
+
+**PRG 이후 리다이렉트**
+- URL이 이미 POST -> GET으로 리다이렉트 됨
+- 새로 고침 해도 GET으로 결과 화면만 조회
+
+
+### 정리
+
+- 302 FOUND -> GET으로 변할 수 있음 (변할 수 있음)
+- 307 Temporary Redirect -> 메서드가 변하면 안됨 (변하면 안됨)
+- 303 See Other -> 메서드가 GET으로 변경 (변해야 함)
+
+처음 302 스펙의 의도는 HTTP 메서드를 유지하는 것
+- 그런데 웹 브라우저들이 대부분 GET으로 바꾸어버림(일부는 다르게 동작)
+- 그래서 모호한 302를 대신하는 명확한 307, 303이 등장함(301 대응으로 308도 등장)
+현실
+- 307, 303을 권장하지만 현실적으로 이미 많은 애플리케이션 라이브러리들이 302를 기본값으로 사용
+- 자동 리다이렉션시에 GET으로 변해도 되면 그냥 302를 사용해도 큰 문제 없음
+
+
+304 Not Modified
+
+캐시를 목적으로 사용
+- 클라이언트에게 리소스가 수정되지 않았음을 알려준다. 따라서 클라이언트는 로컬PC에 저장된 캐시를 재사용한다. (캐시로 리다이렉트 한다.)
+- 304 응답은 응답에 메시지 바디를 포함하면 안된다. (로컬 캐시를 사용해야 하므로)
+- 조건부 GET, HEAD 요청시 사용
+
+## 4XX 오류
+
+클라이언트 오류
+
+- 오류의 원인이 클라이언트에 있음
+- 중요 ! 클라이언트가 이미 잘못된 요청을 함, 그러므로 똑같이 시도 하여도 실패함
+
+## 400 Bad Request
+클라이언트가 잘못된 요청을 해서 서버가 요청을 처리할 수 없음
+
+- 요청구문, 메시지 등등
+- 클라이언트는 요청 내용을 다시 검토하고, 보내야함
+- 예) 요청 파라미터가 잘못되거나, API 스펙이 맞지 않을 때
+
+## 401 Unauthorized
+
+클라이언트가 해동 리소스에 대한 인증이 필요함
+
+- 인증되지 않음
+- 인증(Authentication): 본인이 누구인지 확인, (로그인)
+  - 인가(Authorization): 권한부여 (ADMIN 권한처럼 특정 리소스에 접근할 수 있는 권한, 인증이 있어야 인가가 있음)
+  - 오류 메시지가 Unauthorized 이지만 인증 되지 않음
+
+## 403 Forbidden
+
+서버가 요청을 이해했지만 승인을 거부함
+
+- 주로 인증 자격 증명은 있지만, 접근 권한이 불충분한 경우
+- 예) 어드민 등급이 아닌 사용자가 로그인은 했지만, 어드민 등급의 리소스에 접근하는 경우
+
+## 404 Not Found
+
+- 요청 리소스가 서버에 없음
+- 또는 클라이언트가 권한이 부족한 리소스에 접근할 때 해당 리소스를 숨기고 싶을 때
+
+## 5XX 오류
+
+서버 오류
+
+- 서버 문제로 오류 발생
+- 서버에 문제가 있기 때문에 재시도 하면 성공할 수도 있음(복구가 되거나 등등)
+
+## 500 Internal Server Error
+
+서버 문제로 오류 발생, 애매하면 500 오류
+- 서버 내부 문제로 오류 발생
+- 애매하면 500 오류
+
+## 503 Service Unavailable
+서비스 이용 불가
+- 서버가 일시적인 과부하 또는 예정된 작업으로 잠시 요청을 처리할 수 없음
+- Retry-After 헤더 필드로 얼마뒤에 복구되는지 보낼 수도 있음
+
+
+조심해야 할 부분, 5XX 에러는 언제 내면 안될까 ?
+
+**예시)**
+- 비즈니스 로직상 API스펙이 맞고 서버까지 들어옴
+- 고객의 잔고가 부족할때는 ?
+- 나이제한이 있는 제품을 미성년자가 구매할 경우 ?
+- 5XX을 내면 안됨
+- 왜냐하면 이것은 서버문제가 아니기 때문
+- 비즈니스 로직상 예외케이스이므로
+
+# HTTP 헤더
+
+## HTTP BODY
+
+![image](https://user-images.githubusercontent.com/109144975/224009381-40bd4e92-e045-4187-8343-ba0745a4cc7d.png)
+
+표현이 표현인 이유
+
+- 회원 데이터를 html로 표현한다고 가정
+- 회원이라는 리소스를 html로 표현
+- 회원 데이터를 json으로 조회한다면
+- 회원 리소스를 http를 통해 주고 받을 때
+- html, json으로 표현이 될 수 있음
+- 실제 전달하는 것을 표현이라고 함
+
+## 표현
+
+- Content-Type: 표현 데이터의 형식
+- Content-Encoding: 표현 데이터의 압축 방식
+- Content-Language: 표현 데이터의 자연 언어
+- Content-Length: 표현 데이터의 길이
+- 표현 헤더는 전송, 응답 둘다 사용
+
+## Content-Type
+표현 데이터의 형식 설명 즉, content-body에 들어가는 내용이 무엇인지에 대한 형식 설명
+
+- 미디어 타입, 문자 인코딩
+- text/html; charset=utf-8
+- application/json
+- image/png
+
+## Content-Encoding
+표현 데이터 인코딩
+
+- 표현 데이터(바디)를 압축하기 위해 사용
+- 무엇으로 압축하였는지에 대한 정보
+- 데이터를 읽는 쪽에서 인코딩 헤더의 정보로 압축 해제
+  - gzip
+  - deflate
+  - identity (압축 안함)
+
+## Content-Language
+표현 데이터의 자연 언어
+- 표현 데이터의 자연 언어를 표현
+  - ko
+  - en
+  - en-US
+
+## Content-Length
+포현 데이터의 길이
+
+- 바이트 단위
+- Transfer-Encoding(전송코딩)을 사용하면 Content-Length를 사용하면 안됨 (뒤에서 추가 설명)
+
+## 협상(콘텐츠 네고시에이션)
+클라이언트가 선호하는 표현 요청
+
+클라이언트가 원하는 표현을 서버가 주는 것
+
+- Accept: 클라이언트가 선호하는 미디어 타입 전달 (html 등)
+- Accept-Charset: 클라이언트가 선호하는 문자 인코딩 (utf-8 등)
+- Accept-Encoding: 클라이언트가 선호하는 압축 인코딩 (gzip 등)
+- Accept-Language: 클라이언트가 선호하는 자연 언어 (ko 등)
+- 협상 헤더는 요청시에만 사용
+
+## Accept-Languate 적용 전
+
+클라이언트 측에서 한국어에 대한 정보가 아무것도 없는 상황
+
+![image](https://user-images.githubusercontent.com/109144975/224056324-b9a81f4d-eabc-4e4e-8a04-1b1ef93c0874.png)
+
+
+Accept-Language:ko 이므로 ko에 대한 정보를 가지고 클라이언트가 서버로 전달
+
+![image](https://user-images.githubusercontent.com/109144975/224056399-4341f8b5-032a-4d8a-ac5b-2a324504d036.png)
+
+서버는 한국어도 지원하므로 클라이언트가 원하는 한국어로 반환하여 전송
+
+복잡한 예시
+
+이럴 경우는 어떻게 해야하지 ?
+-> 우선순위를 정해야 한다
+
+![image](https://user-images.githubusercontent.com/109144975/224056881-7b73eca1-287d-4048-9978-16022fa1e331.png)
+
+## 협상과 우선순위1
+- Qualitu Values (q) 값 사용
+- 0~1, 클수록 높은 우선순위
+- 생략하면 1
+- Accept-Language: ko-KR, ko;q=0.9,en-US;q=0/8,en;q=0.7
+  - 1 ko-KR;q=1 (q생략)
+  - 2 ko;q=0.9
+  - 3 en-US;q=0.8
+  - 4 en:q=0.7
+
+## 협상과 우선순위2
+
+- 구체적인 것이 우선한다.
+- Accept: text/*, text/plain, text/plain;format=flowed, **/* *
+  1. text/plain;format=flowed
+  2. text/plain
+  3. text/*
+  4. **/* *
+
+## 협상과 우선순위3
+
+- 구체적인 것을 기준으로 미디어 타입을 맞춘다.
+
+## 전송 방식 설명
+- 단순 전송
+- 압축 전송
+- 분할 전송
+- 범위 전송
+
+## 단순 전송
+Content-Length를 미리 알고 보내는 것
+
+클라이언트의 요청에 대한 응답을 보내줄 때 Content에 대한 길이를 알 수 있을 때 사용하는 것
+
+## 압축 전송
+예를 들어 gzip으로 압축하여 보내는 것
+
+Content-Encoding : gzip 정보를 함께 보내줘야 클라이언트가 무엇으로 압축되었는지를 알고 Content를 
+열어볼 수 있음
+
+## 분할 전송
+Tranfer-Encoding
+
+덩어리로 쪼개서 보내는 것
+
+## 범위 전송
+
+Content의 범위 bytes를 적어서 보내는 것
+
+## 일반 정보
+
+- From: 유저 에이전트의 이메일 정보
+- Referer: 이전 웹 페이지 주소
+- User-Agent: 유저 에이전트 애플리케이션 정보
+- Server: 요청을 처리하는 오리진 서버의 소프트웨어 정보
+- Date: 메시지가 생성된 날짜
+
+## From
+유저 에이전트의 이메일 정보
+
+- 일반적으로 잘 사용되지 않음
+- 검색 엔진 같은 곳에서, 주로 사용
+- 요청에서 사용
+
+## Referer
+이전 웹 페이지 주소
+
+- 현재 요청된 페이지의 이전 웹 페이지 주소
+- A->B로 이동하는 경우 B를 요청할 때  Referer: A를 포함해서 요청
+- Referer를 사용해서 유입 경로 분석 가능
+- 요청에서 사용
+- 참고 : referer는 단어 referrer의 오타
+
+## User-Agent
+유저 에이전트 애플리케이션 정보
+
+- user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/ 537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36
+- 클리이언트의 애플리케이션 정보(웹 브라우저 정보, 등등)
+- 통계 정보
+- 어떤 종류의 브라우저에서 장애가 발생하는지 파악 가능
+- 요청에서 사용
+- 언제쓸까 ? 특정 브라우저에서 버그가 생길때, log를 parsing하면 알 수 있음
+
+## Server
+요청을 처리하는 ORIGIN 서버(최종 목적지인 표현데이터를 만들어 응답을 해주는 서버)의 소프트웨어 정보
+
+- Server: Apache/2.2.22 (Debian)
+- server: nginx
+- 응답에서 사용
+
+## Date
+메시지가 발생한 날짜와 시간
+
+- Date: Tue, 15 Nov 1994 08:12:31 GMT
+- 응답에서 사용
+
+## 특별한 정보
+- Host: 요청한 호스트 정보(도메인)
+- Location: 페이지 리다이렉션
+- Allow: 허용 가능한 HTTP 메서드
+- Retry-After: 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+## Host
+
+![image](https://user-images.githubusercontent.com/109144975/224066190-ca2ca689-406d-43a6-a499-4947d7e9e8b8.png)
+
+
+요청한 호스트 정보(도메인)
+
+> 가상호스트란 ?
+> 
+> 하나의 서버 (IP:200.200.200.2) 가 있는데 이 서버안에 여러개의 애플리케이션이 실제 다른 도메인으로 구동되어있을 수 있다.
+
+![image](https://user-images.githubusercontent.com/109144975/224066456-f912c3bf-1cfe-4c79-91fd-431caf76caa8.png)
+
+만약 아래의 상황이라면 3개의 사이트를 어떻게 구분할까 ? IP로만 통신(TCP/IP로만 연결하여)하기때문에 구분이 불가하다.
+
+![image](https://user-images.githubusercontent.com/109144975/224067038-1aed150e-e4e9-4fe0-9209-da2cbf447423.png)
+
+- Host 정보는 필수이다
+- 그래서 Host Header 필드를 넣어줌
+- 도메인에 aaa.com이라고 입력함
+- 이렇게 되면 TCP/IP로 통신 후 서버에서 받아서 호스트가 aaa.com인것을 알고 내부에서 구분하여 연결이 가능하다.
+
+
+![image](https://user-images.githubusercontent.com/109144975/224068349-34b7ab86-80c7-4e8f-8cbe-49634e756278.png)
+
+
+## Location
+페이지 리다이렉션
+
+- 웹 브라우저는 3xx 응답의 결과에 Location 헤더가 있으면, Location 위치로 자동 이동 (리다이렉트)
+- 응답코드 3xx에서 설명
+- 201 (Created): Location 값은 요청에 의해 생성된 리소스 URI
+- 3xx (Redirection): Location 값은 요청을 자동으로 리디렉션하기 위한 대상 리소스를 가리킴
+
+## Allow
+허용 가능한 HTTP 메서드
+
+- 405 (Method Not Allowed) 에서 응답에 포함해야함
+- Allow: GET, HEAD, PUT (이 메소드만 지원하는구나를 클라이언트가 알 수 있음, 잘 사용하지 않음)
+
+## Retry-After
+유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+- 503 (Service Unavailable): 서비스가 언제까지 불능인지 알려줄 수 있음
+- Retry-After: Fri, 31 Dec 1999 23:59:59 GMT (날짜 표기)
+- Retry-After: 120 (초단위 표기)
+
+
+## 인증
+- Authorization: 클라이언트 인증 정보를 서버에 전달
+- WWW-Authenticate: 리소스 접근시 필요한 인증 방법 정의
+
+## Authorization
+클라이언트 인증 정보를 서버에 전달
+
+- Authorization: Basic xxxxxxxxxxxxxxxx
+
+> - 인증은 여러가지 매커니즘이 존재함
+> - Oauth 등등
+> - 인증마다 Value에 들어가는 값 형태는 다름
+> - 따로 공부하며 값을 어떤 헤더를 넣어야 하는구나를 알 수 있음
+> - 하지만 HTTP관련된 Authorization Header는 매커니즘과 관계없이 우선 Header를 제공함
+> - 그리고 여기에 인증과 관련된 값을 넣어주면 됨
+
+
+## WWW-Authenticate
+리소스 접근시 필요한 인증 방법 정의
+
+- 리소스 접근시 필요한 인증 방법 정의
+- 401 Unauthorized 응답과 함께 사용
+- 401 에러가 날 경우 이 정보들을 함께 제공해줘야 함 WWW-Authenticate: Newauth realm="apps", type=1,
+title="Login to \"apps\"", Basic realm="simple"
+
+## 쿠키
+
+- Set-Cookie: 서버에서 클라이언트로 쿠키 전달(응답)
+- Cookie: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청시 서버로 전달
 
