@@ -1,5 +1,11 @@
 # 인터넷 네트워크 HTTP
 
+아래 내용은 김영한님의
+
+- [모든 개발자를 위한 HTTP 웹 기본 지식](https://www.inflearn.com/course/http-%EC%9B%B9-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC)
+
+을 참고하여 작성하였습니다.
+
 # 인터넷 통신이란 ?
 
 
@@ -267,6 +273,8 @@ HTTP 응답 메세지
 
 ![image](https://user-images.githubusercontent.com/109144975/222113863-fbf94383-67ae-4dec-b64f-178f1afd0ae7.png)
 
+---
+
 # HTTP
 
 ## 모든것이 HTTP
@@ -372,6 +380,8 @@ stateless를 고객과 점원의 예시로 들어보겠습니다.
 - 예) 저녁 6:00 선착순 100명 치킨 할인 이벤트
 
 <br>
+
+---
 
 # HTTP 메세지
 
@@ -627,6 +637,7 @@ Host: localhost:8080
 
 - members/100 레코드 삭제
 
+---
 
 ## HTTP 메서드 속성
 
@@ -664,6 +675,8 @@ POST
 
 - 응답 결과 리소스를 캐시해서 사용해도 되는가 ?
 - GET, HEAD 정도만 캐시로 사용
+
+---
 
 ## HTTP 메서드 활용
 
@@ -860,6 +873,7 @@ PUT으로 신규 데이터를 등록하면 리소스 URI를 다 알고 등록해
 > 그런데도 안된다면
 > 컨트롤 URI를 넣어 사용한다.
 
+---
 
 # HTTP 상태 코드
 
@@ -1020,6 +1034,8 @@ PRG 사용
 - 304 응답은 응답에 메시지 바디를 포함하면 안된다. (로컬 캐시를 사용해야 하므로)
 - 조건부 GET, HEAD 요청시 사용
 
+---
+
 ## 4XX 오류
 
 클라이언트 오류
@@ -1055,6 +1071,8 @@ PRG 사용
 - 요청 리소스가 서버에 없음
 - 또는 클라이언트가 권한이 부족한 리소스에 접근할 때 해당 리소스를 숨기고 싶을 때
 
+---
+
 ## 5XX 오류
 
 서버 오류
@@ -1084,7 +1102,9 @@ PRG 사용
 - 왜냐하면 이것은 서버문제가 아니기 때문
 - 비즈니스 로직상 예외케이스이므로
 
-# HTTP 헤더
+---
+
+# HTTP 헤더 1 일반헤더
 
 ## HTTP BODY
 
@@ -1137,6 +1157,8 @@ PRG 사용
 
 - 바이트 단위
 - Transfer-Encoding(전송코딩)을 사용하면 Content-Length를 사용하면 안됨 (뒤에서 추가 설명)
+
+---
 
 ## 협상(콘텐츠 네고시에이션)
 클라이언트가 선호하는 표현 요청
@@ -1242,6 +1264,9 @@ Content의 범위 bytes를 적어서 보내는 것
 - 요청에서 사용
 - 참고 : referer는 단어 referrer의 오타
 
+![image](https://user-images.githubusercontent.com/109144975/224220704-cfcb8aa4-5e1e-4e2e-a630-fe0e7a715df0.png)
+
+
 ## User-Agent
 유저 에이전트 애플리케이션 정보
 
@@ -1270,6 +1295,8 @@ Content의 범위 bytes를 적어서 보내는 것
 - Location: 페이지 리다이렉션
 - Allow: 허용 가능한 HTTP 메서드
 - Retry-After: 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+---
 
 ## Host
 
@@ -1344,8 +1371,338 @@ Content의 범위 bytes를 적어서 보내는 것
 - 401 에러가 날 경우 이 정보들을 함께 제공해줘야 함 WWW-Authenticate: Newauth realm="apps", type=1,
 title="Login to \"apps\"", Basic realm="simple"
 
+
 ## 쿠키
 
 - Set-Cookie: 서버에서 클라이언트로 쿠키 전달(응답)
-- Cookie: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청시 서버로 전달
+- Cookie: 클라이언트는 서버에서 받은 쿠키를 쿠키저장소에 하고, HTTP 요청시 무조건 쿠키 저장소의 내용을 서버로 전달
+
+### 쿠키 미사용
+
+welcome 페이지 접속
+
+![image](https://user-images.githubusercontent.com/109144975/224209357-65467255-7b09-491c-ba10-2662426b3d21.png)
+
+로그인 페이지 접속
+
+![image](https://user-images.githubusercontent.com/109144975/224209415-e81a400c-a149-4486-9e14-a9fdbd310aba.png)
+
+로그인 이후 다시 welcom 페이지 접속
+
+- `안녕하세요 홍길동님` 을 기대하였지만 아님
+- 왜냐하면 서버입장에서는 위 HTTP 메세지에서 사용자를 구분할 방법이 없기 때문
+
+![image](https://user-images.githubusercontent.com/109144975/224209517-130b6c7b-5717-43b9-b1dd-eddb45e10ec1.png)
+
+## Stateless
+- HTTP는 무상태(Stateless) 프로토콜이다.
+- 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어진다.
+- 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못한다.
+- 클라이언트와 서버는 서로 상태를 유지하지 않는다.
+
+대안 - 모든 사용자 정보 포함
+
+![image](https://user-images.githubusercontent.com/109144975/224209756-67de6d28-8cde-46f1-bc04-be673255b191.png)
+
+이것이 현실적으로 가능할까 ? - 불가함 (이 대안은 심각한 문제를 발생함)
+
+![image](https://user-images.githubusercontent.com/109144975/224209837-722a6eb3-ef5b-4c2e-b6a5-8a4d14c5dcda.png)
+
+## 모든 요청에 정보를 넘기는 문제
+- 모든 요청에 사용자 정보가 포함되도록 개발 해야함
+- 브라우저를 완전히 종료하고 다시 열면?
+
+## 쿠키 사용
+
+로그인
+- 클라이언트가 `user=홍길동` 이라는 정보를 POST로 서버에게 주면
+- 서버는 해당 정보를 쿠키 헤더를 만들어서 `set-Cookie=홍길동` 을 입력하여 클라이언트로 응답합니다. (개발자가 로직을 만드는 것)
+- 웹 브라우저 내에는 쿠키 저장소가 있음
+- 그 저장소에 key는 user이고 value는 홍길동이라는 정보 `user=홍길동`을 저장합니다.
+
+
+![image](https://user-images.githubusercontent.com/109144975/224210539-44222a28-05bb-40dc-a758-cac07c0dc8ca.png)
+
+로그인 이후 welcome 페이지 접속
+- 쿠키 저장소에는 정보가 저장되어있는 상황
+- 이때 welcome 페이지에 다시 접속하게 되면
+- 자동으로 웹 브라우저는 서버에 요청을 보낼 때 마다 무조건 쿠키 저장소를 찾아봄
+- 쿠키 값을 꺼내어 HTTP 헤더를 만들어서 서버에 요청을 보냄
+- 그렇게 되면 서버는 `user=홍길동` 정보를 알 수 있게 됨
+
+![image](https://user-images.githubusercontent.com/109144975/224211178-634da7c0-4cd6-448a-8d16-acddc92ecd7e.png)
+
+로그인 이후 모든 요청에 쿠키 정보 자동 포함
+
+![image](https://user-images.githubusercontent.com/109144975/224211812-a6f55d34-9c86-4ed2-8167-54cd6927f95a.png)
+
+## 쿠키
+
+모든곳에 위와같이 쿠키 정보를 보내면 보안 및 여러가지 문제가 발생할 수 있음
+
+따라서 아래와 같이 제약하는 방법이 존재함
+
+- 예) set-cookie: sessionId=abcde1234; expires=Sat, 26-Dec-2020 00:00:00 GMT; path=/; domain=.google.com; Secure
+- 주 사용처
+  - 사용자 **로그인 세션 관리**
+  - 광고 정보 트래킹
+- 쿠키 정보는 항상 서버에 전송됨
+  - 단점 : 네트워크 트래픽 추가 유발
+  - 최소한의 정보만 사용(세션 id, 인증 토큰)
+  - 서버에 전송하지 않고, 웹 브라우저 내부에 데이터를 저장하고 싶으면 웹 스토리지 (localStorage, sessionStorage) 참고
+- 주의!
+- 보안에 민감한 데이터는 저장하면 안됨(주민번호, 신용카드 번호 등등)
+
+## sessionId
+
+- 사용자가 쿠키로 전달한 값들을 직접 주고 받는것이 아닌
+- 해당 값들에 대해 sessionId를 부여 하여
+- sessionId를 통해 서버는 데이터베이스에 값을 비교하여 확인함
+
+
+## 쿠키 - 생명주기
+Expires, max-age
+
+- Set-Cookie: expires=Sat, 26-Dec-2020 04:39:21 GMT
+  - 만료일이 되면 쿠키 삭제
+- Set-Cookie: max-age=3600 (3600초)
+  - 0이나 음수를 지정하면 쿠키 삭제
+- 세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지 (크롬 종료하면 다시 로그인해야 하는 경우)
+- 영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지
+
+## 쿠키 - 도메인
+Domain
+
+- 예) domain=example.org
+- 명시: 명시한 문서 기준 도메인 + 서브 도메인 포함
+  - `domain=example.org`를 도메인 지정해서 쿠키 생성
+    - example.org는 물론이고
+    - dev.example.org도 쿠키 접근
+- 생략: 현재 문서 기준 도메인만 적용
+  - `example.org` 에서 쿠키를 생성하고 도메인 지정을 생략
+    - example.org 에서만 쿠키 접근
+    - dev.example.org는 쿠키 미접근
+
+
+## 쿠키 - 경로
+Path
+
+- 예) path=/home
+- 이 **경로를 포함한 하위 경로 페이지**만 쿠키 접근
+- 일반적으로 path=/ 루트로 지정, 왜냐하면 보통 한 도메인 안에서 쿠키 정보를 보내기를 원하기 때문
+- 예)
+  - path=/home 지정
+  - /home -> 가능
+  - /home/level1 -> 가능
+  - /home/level1/level2 -> 가능
+  - /hello -> 불가능
+
+## 쿠키 - 보안
+Secure, HttpOnly, SameSite
+
+- Secure
+  - 쿠키는 http, https를 구분하지 않고 전송
+  - Secure를 적용하면 https인 경우에만 전송
+- HttpOnly
+  - XSS 공격 방지
+  - 자바스크립트에서 접근 불가(document.cookie)
+  - HTTP 전송에만 사용
+- SameSite
+  - XSRF 공격 방지
+  - 요청 도메인과 쿠키에 설정된 도메인이 같은 경우만 쿠키 전송
+
+
+# HTTP 헤더 2 캐시와 조건부 요청
+
+## 캐시 기본 동작
+
+## 캐시가 없을 때
+
+첫 번째 요청
+- 클라이언트가 star.jpg를 요청
+- HTTP BODY에 star.jpg를 넣어 응답 
+
+![image](https://user-images.githubusercontent.com/109144975/224214176-56260bc5-7bdb-4a0d-b727-4a68b6c2fcc8.png)
+
+
+두 번째 요청
+- 서버에서는 이전과 동일하게 요청을 받았으므로
+- 헤더와 바디를 다시 만들어 응답
+
+![image](https://user-images.githubusercontent.com/109144975/224214613-6d12d949-743e-4c7b-b1c7-4338c562c0a0.png)
+
+## 캐시가 없을 때
+- 데이터가 변경되지 않아도 계속 네트워크를 통해서 데이터를 다운로드 받아야 한다.
+- 인터넷 네트워크는 매우 느리고 비싸다.
+- 브라우저 로딩 속도가 느리다.
+- 느린 사용자 경험
+
+
+## 캐시 적용
+- 서버에서 캐시 관련 세팅이 되어있다고 가정
+- 웹 브라우저가 star.jpg를 요청하게되면
+- cache-control을 HTTP header에 넣어줄 수 있음, 캐시가 유효한 시간(초)
+
+
+![image](https://user-images.githubusercontent.com/109144975/224214865-699a473e-2e93-4bf9-afde-371db7c7d1eb.png)
+
+## 캐시 적용
+
+첫 번째 요청 응답
+- 웹 브라우저에 캐시를 저장하는 캐시저장소에 응답 결과 star.jpg를 저장 (60초 유효)
+
+![image](https://user-images.githubusercontent.com/109144975/224215190-c108feb9-8deb-473c-9629-a90f4b449662.png)
+
+
+## 캐시 적용
+
+두 번째 요청
+- 캐시를 먼저 찾아봄
+- 캐시 유효 시간 검증 후
+- 유효하면 캐시 저장소에서 바로 가져옴
+
+
+1. 캐시를 먼저 찾아봄
+
+![image](https://user-images.githubusercontent.com/109144975/224215427-10f85dd5-a528-46d9-859b-996284e1b32d.png)
+
+2. 캐시 유효 시간 검증 후
+
+![image](https://user-images.githubusercontent.com/109144975/224215657-14c34df6-4508-4ad4-a2b8-e3c1b2535928.png)
+
+
+3. 유효하면 캐시 저장소에서 바로 가져옴 (네트워크를 탈 필요 없음)
+
+![image](https://user-images.githubusercontent.com/109144975/224215697-27c22ac9-ca2f-4e17-a619-2c73d9ba983f.png)
+
+## 캐시 적용
+- 캐시 덕분에 캐시 가능 시간동안 네트워크를 사용하지 않아도 된다.
+- 비싼 네트워크 사용량을 줄일 수 있다.
+- 브라우저 로딩 속도가 매우 빠르다.
+- 빠른 사용자 경험
+
+## 캐시 적용
+세 번째 요청 - 캐시 시간 초과
+- 요청시 캐시 저장소에 있는 캐시 찾아봄
+- 해당 캐시가 시간초과됨
+- 다시 서버로 star.jpg를 요청함
+- 서버는 star.jpg를 HTTP 메세지에 담아 다시 클라이언트로 보냄
+- 클라이언트, 웹 브라우저는 기존의 캐시를 지우고 새로 받은 캐시 데이터를 캐시 저장소에 저장(초기화)
+
+캐시 저장소에 조회하였지만 실패
+
+![image](https://user-images.githubusercontent.com/109144975/224216029-b4cb425b-79e0-477b-a29e-27161a9cbab8.png)
+
+서버로 다시 star.jpg 요청
+
+![image](https://user-images.githubusercontent.com/109144975/224216502-d22df173-5ada-496c-a9f5-b2d35671ae01.png)
+
+서버로부터 응답받은 데이터를 캐시 저장소에 초기화
+
+![image](https://user-images.githubusercontent.com/109144975/224216536-38906422-73d1-4969-9aca-3b36897934c0.png)
+
+## 캐시 시간 초과
+- 캐시 유효 시간이 초과하면, 서버를 통해 데이터를 다시 조회하고, 캐시를 갱신한다.
+- 이때 **다시 네트워크 다운로드가 발생**한다.
+
+> 질문
+> 
+> 다시 다운받는 이유는 서버측에서 60초의 만료기간을 두었기 때문
+> 
+> 만료기간을 둔 이유는 해당 시간이 지나면 서버에서는 해당 데이터가 변할 수 있기 때문
+> 하지만 별이라는 이미지는 변하지 않음
+> 
+> 만약 캐시 시간 초과가 났을때 클라이언트가 가진 데이터와 서버가 가진 데이터가 동일할때 다시 다운받지 않는 방법은 없을까 ?
+
+## 검증헤더와 조건부 요청 1
+
+## 캐시 시간 초과
+캐시 유효 시간이 초과해서 서버에 다시 요청하면 다음 두 가지 상황이 나타난다.
+
+- 서버에서 기존 데이터를 변경함
+- 서버에서 기존 데이터를 변경하지 않음
+  - 이렇게 되면 굳이 처음부터 다운로드 받아야 할까? 라는 의문이 생기게 됨
+
+![image](https://user-images.githubusercontent.com/109144975/224217897-56b81750-63be-4f48-858a-b9928c90f305.png)
+
+## 검증 헤더 추가
+
+첫 번째 요청
+- Last-Modified 를 헤더에 추가함
+- 해당 데이터가 마지막에 수정된 시간을 의미
+
+
+![image](https://user-images.githubusercontent.com/109144975/224218020-2e7556ab-80ba-493c-b115-6beb72c21ed5.png)
+
+## 검증 헤더 추가
+
+첫 번째 요청
+
+응답결과를 캐시 저장소에 저장
+- **데이터 최종 수정일(Last-Modified)** 도 함께 저장
+
+![image](https://user-images.githubusercontent.com/109144975/224218163-e63994bd-18c8-43bf-b4b1-b41850559264.png)
+
+## 검증 헤더 추가
+
+두 번째 요청 - 캐시 시간 초과
+- 유효 시간이 초과되었으므로 다시 서버로 요청해야 함
+- 캐시에 Last-Modified정보가 있으면 서버로 요청 보낼 시 if-Modified-since 정보를 함께 보냄
+- 서버에서는 if-modified-since 요청이 오게되면 해당 modified 수정일을 서로 검증해봄
+- 만약 수정일이 동일할 경우(변동 X) HTTP응답을 만들시 304 Not Modified를 내보냄
+- 이 의미는 `클라이언트 너가 이미지를 요청했지만 서버에서는 변경된것이 없어` 라는 의미
+- 중요한것은 HTTP Body가 없음
+- 이것이 중요한 이유는 Body가 없으면 비용이 그만큼 줄어들기 때문, 네트워크 부하가 줄어듬
+- 클라이언트는 304 Not Modified를 받고 변경되지 않은것을 인식하였기 때문에 다시 cache-control(유효시간)값 갱신함
+- 해당 데이터를 다시 캐시 저장소로부터 다운 받음
+
+![image](https://user-images.githubusercontent.com/109144975/224218454-7207c2d0-71e2-447e-a2b9-6295c8b5cfdc.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224218666-522e5a3e-d950-4e51-aaaf-e4b80d2bf129.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224219580-d0ec6390-96c1-4130-b093-63d85a627ac8.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224219628-4fee706f-5483-4ebb-86d3-982b1b01093a.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224219658-2e1d7a8f-0321-4ba0-bc97-ad3d209adb0d.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224219713-cec9fcd9-cfd8-4bf1-ae23-8b61007f2980.png)
+
+![image](https://user-images.githubusercontent.com/109144975/224219748-13f03fdc-ba5c-46a1-b9b7-2878dbe1e7d8.png)
+
+## 검증 헤더와 조건부 요청
+정리
+
+- 캐시 유효 시간이 초과해도, 서버의 데이터가 갱신되지 않으면
+- 304 Not Modified + 헤더 메타 정보만 응답(바디X)
+- 클라이언트는 서버가 보낸 응답 헤더 정보로 캐시의 메타 정보를 갱신
+- 클라이언트는 캐시에 저장되어 있는 데이터 재활용
+- 결과적으로 네트워크 다운로드가 발생하지만 용량이 적은 헤더 정보만 다운로드 (1.1 -> 0.1)
+- 매우 실용적인 해결책
+
+## 실습
+
+### 나의 PC 화면
+로컬 PC에서 확인해보았지만 Request Header 에는 if-modified-since 항목이 존재하지 않았다.
+
+(`if-modified` 키워드로 검색시 no result)
+
+상태 코드도 304가 아닌 200으로 확인된다.
+
+![image](https://user-images.githubusercontent.com/109144975/224222396-32721de5-6899-4cdd-a7d7-1a332321e3e8.png)
+
+
+차이점이라면 내 생각에 강사님의 강의 기준 2019년도에서는 구글이 h2를 채택하였지만 현재 2023년도에는 h3를 적용한 것을 볼 수 있었다.
+
+아마 버전이 HTTP 2 -> HTTP3 으로 업데이트 되면서 무언가가 바뀐게 아닐까 .. 싶다
+
+### 강사님 화면
+
+상태 코드 304
+
+![image](https://user-images.githubusercontent.com/109144975/224221868-18dae25a-eb54-417c-80f6-a6dbfb68babd.png)
+
+if-modified-since
+
+![image](https://user-images.githubusercontent.com/109144975/224221919-d6d9b2fe-2c97-4a6a-99c6-5ba8d6a81a97.png)
 
