@@ -1706,3 +1706,254 @@ if-modified-since
 
 ![image](https://user-images.githubusercontent.com/109144975/224221919-d6d9b2fe-2c97-4a6a-99c6-5ba8d6a81a97.png)
 
+## 검증 헤더와 조건부 요청 2
+
+- 검증 헤더
+  - 캐시 데이터와 서버 데이터가 같은지 검증하는 데이터
+  - Last-Modified , ETag
+- 조건부 요청 헤더
+  - 검증 헤더로 조건에 따른 분기
+  - If-Modified-Since: Last-Modified 사용
+  - If-None-Match: ETag 사용
+  - 조건이 만족하면 200 OK
+  - 조건이 만족하지 않으면 304 Not Modified
+
+### 예시
+- If-Modified-Since: 이후에 데이터가 수정되었으면?
+  - 데이터 미변경 예시
+  - 변경이 일어나지 않았으니 캐시 조회해서 사용해라라는 의미
+    - 캐시: 2020년 11월 10일 10:00:00 vs 서버: 2020년 11월 10일 10:00:00
+    - 304 Not Modified, 헤더 데이터만 전송(BODY 미포함)
+    - 전송 용량 0.1M (헤더 0.1M, 바디 1.0M)
+- 데이터 변경 예시
+  - 캐시: 2020년 11월 10일 10:00:00 vs 서버: 2020년 11월 10일 **11**:00:00
+  - 200 OK, 모든 데이터 전송(BODY 포함)
+  - 전송 용량 1.1M (헤더 0.1M, 바디 1.0M)
+
+### Last-Modified, If-Modified-Since 단점
+- 1초 미만(0.x초) 단위로 캐시 조정이 불가능
+- 날짜 기반의 로직 사용
+- 데이터를 수정해서 날짜가 다르지만, 같은 데이터를 수정해서 데이터 결과가 똑같은 경우
+  - A -> B, B -> A : 실제로는 결국 A로 같은 데이터지만 날짜가 바뀌는 경우
+- 서버에서 별도의 캐시 로직을 관리하고 싶은 경우
+  - 예) 스페이스나 주석처럼 크게 영향이 없는 변경에서 캐시를 유지하고 싶은 경우
+
+### ETag, If-None-Match
+- ETag(Entity Tag)
+  - 캐시용 데이터에 임의의 고유한 버전 이름을 달아둠
+    - 예) ETag: "v1.0", ETag: "a2jiodwjekjl3"
+- 데이터가 변경되면 이 이름을 바꾸어서 변경함(Hash를 다시 생성)
+  - 예) ETag: "aaaaa" -> ETag: "bbbbb"
+- 진짜 단순하게 ETag만 보내서 같으면 유지, 다르면 다시 받기!
+
+## 검증 헤더 추가
+첫 번째 요청
+
+- 클라이언트에서 start.jpg를 요청
+- 서버에서 star.jpg를 ETag를 내려줌
+
+![image](https://user-images.githubusercontent.com/109144975/224541065-81b6ef6a-64f4-4b2f-a66b-b66e95b3c836.png)
+
+- 클라이언트가 응답결과 ETag를 캐시에 저장
+
+![image](https://user-images.githubusercontent.com/109144975/224541088-7c6f9c05-4cbb-4f1c-97f9-cb9e9a870d46.png)
+
+두 번째 요청 - 캐시 시간 초과
+- 클라이언트가 캐시를 조회
+
+![image](https://user-images.githubusercontent.com/109144975/224541096-dd51737c-e21c-4a11-9ad8-436b9dbf7abe.png)
+
+- 이때 시간(60초)가 초과 됨
+
+![image](https://user-images.githubusercontent.com/109144975/224541102-10750755-a31f-4a73-b31b-09d201878684.png)
+
+- If-None-Match를 통해 서버로 "aaaaaa"가 변경되었는지 확인요청
+- 아직 데이터가 수정되지 않았음
+
+![image](https://user-images.githubusercontent.com/109144975/224541138-75d93a54-f2c9-4440-a1d0-03a1e2c6343e.png)
+
+
+- 실패 304 Not Modified 를 보냄
+- HTTP Body를 보내지 않음
+
+![image](https://user-images.githubusercontent.com/109144975/224541151-15c221c4-a836-4bd6-9091-f0407ebca363.png)
+
+- 캐시를 다시 재사용
+- 데이터 갱신
+
+![image](https://user-images.githubusercontent.com/109144975/224541395-1b028f90-f267-48c2-9886-827fe528b0aa.png)
+
+- 캐시에서 조회
+
+![image](https://user-images.githubusercontent.com/109144975/224541429-d53a795f-c4f3-46cb-acd6-d966eb6218ab.png)
+
+ETag, If None Match 정리
+
+- 진짜 단순하게 ETag만 서버에 보내서 같으면 유지, 다르면 다시 받기!
+- **캐시 제어 로직을 서버에서 완전히 관리**
+- 클라이언트는 단순히 이 값을 서버에 제공(클라이언트는 캐시 메커니즘을 모름)
+- 예)
+  - 서버는 배타 오픈 기간인 3일 동안 파일이 변경되어도 ETag를 동일하게 유지
+  - 애플리케이션 배포 주기에 맞추어 ETag 모두 갱신
+
+## 캐시와 조건부 요청 헤더
+
+## 캐시 제어 헤더
+
+캐시는 캐시 제어와 관련된 헤더(아래 요소)들이 있음
+
+- **Cache-Control: 캐시 제어**
+- Pragma: 캐시 제어(하위 호환)
+- Expires: 캐시 유효 기간(하위 호환)
+
+## Cache-Control
+캐시 지시어(directives)
+
+- Cache-Control: max-age
+  - 캐시 유효 시간, 초 단위
+- Cache-Control: no-cache
+  - 데이터는 캐시해도 되지만, 항상 원(origin) 서버에 검증(if none match)하고 사용
+- Cache-Control: no-store
+- 데이터에 민감한 정보가 있으므로 저장하면 안됨
+(메모리에서 사용하고 최대한 빨리 삭제)
+
+
+## Expires
+캐시 만료일 지정(하위 호환)
+
+- expires: Mon, 01 Jan 1990 00:00:00 GMT
+- 캐시 만료일을 정확한 날짜로 지정 (불편함)
+- HTTP 1.0 부터 사용
+- 지금은 더 유연한 Cache-Control: max-age 권장
+- Cache-Control: max-age와 함께 사용하면 Expires는 무시
+
+## 검증헤더 조건부 요청 헤더
+정리
+
+- 검증 헤더 (Validator)
+  - ETag: "v1.0", ETag: "asid93jkrh2l"
+  - Last-Modified: Thu, 04 Jun 2020 07:19:24 GMT
+- 조건부 요청 헤더
+  - If-Match, If-None-Match: ETag 값 사용
+  - If-Modified-Since, If-Unmodified-Since: Last-Modified 값 사용
+
+
+## 프록시 캐시
+
+## 원 서버 직접 접근
+
+- origin 서버
+- 미국에 있는 서버(origin)로 매번 직접 요청을 하게 되면 시간이 너무 오래 걸림
+- 모든 사람들이 사진 하나 다운받는데 0.5초나 기다려야 함
+
+![image](https://user-images.githubusercontent.com/109144975/224541933-a33f46dd-8131-4fd4-8b0a-51abcd8baf8c.png)
+
+## 프록시 캐시 도입
+
+- 프록시 캐시 서버를 클라이언트 기준 가까운 곳에 위치시킴
+- DNS 요청을 조금 조작하여 미국 origin 서버로 바로 요청하는 것이 아니라 프록시 서버를 거치도록 함
+
+> 이러한 원리로 인해 유튜브를 볼때 빠르게 볼 수 있음
+> 
+> - 예를 들어 사람들이 많이 보지 않는 기술 유튜버를 보면 유튜브 영상 로딩 속도가 비교적 느림
+> - 반대로 사람들이 많이 보는 컨텐츠들을 보게되면 비교적 빠르게 로딩 됨
+> - 이러한 서비스를 CDN 서비스라고 함
+> - 최초 유저가 다운로드시 비교적 느리고 그 이후부터는 빠르게 로딩
+
+
+> [CDN](https://www.akamai.com/ko/our-thinking/cdn/what-is-a-cdn) 이란 ?
+> 
+> - CDN(콘텐츠 전송 네트워크)은 지리적으로 분산된 여러 개의 서버
+> - 웹 콘텐츠를 사용자와 가까운 곳에서 전송함으로써 전송 속도를 높임
+> - 전 세계 데이터센터는 파일 복사본을 임시로 저장하는 프로세스인 캐싱을 사용
+> - 사용자는 가까운 서버를 통해 웹 활성화 디바이스 또는 브라우저에서 인터넷 콘텐츠에 빠르게 접속할 수 있음
+
+
+![image](https://user-images.githubusercontent.com/109144975/224541940-2cfd1f90-c36f-4ab2-8ba7-d9cae72ecdfe.png)
+
+## 프록시 캐시 도임
+
+- private 캐시는 웹 각각이 사용하는 캐시
+- public 캐시는 공용으로 사용하는 캐시 (유튜브 영상)
+
+
+![image](https://user-images.githubusercontent.com/109144975/224542608-f97d22ab-e2d1-4b51-9aa7-049e853abfb3.png)
+
+## Cache-Control
+캐시 지시어 - 기타
+
+- Cache-Control: public
+  - 응답이 public 캐시에 저장되어도 됨
+- Cache-Control: private
+  - 응답이 해당 사용자만을 위한 것(로그인 정보 등)임, private 캐시에 저장해야 함(기본값)
+- Cache-Control: s-maxage
+  - 프록시 캐시에만 적용되는 max-age
+- Age: 60 (HTTP 헤더)
+  - 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
+
+
+## 캐시 무효화
+
+## Cache-Control
+확실한 캐시 무효화 응답
+
+- Cache-Control: no-cache, no-store, must-revalidate
+- Pragma: no-cache
+  - HTTP 1.0 하위 호환
+
+캐시를 적용 안하면 캐싱이 안되는거 아닌가 ?
+- 아님, GET요청을 하게되면 웹 브라우저가 임의로 캐시를 할 수 있음
+- 만약 정말 해당 페이지가 캐시가 되면 안된다면 위의 Cache-Control 요소(HTTP1.0은 Pragma 까지)들을 다 넣어주어야 함
+  - ex) 사용자 통장 잔고 - 계속 갱신이 되므로 캐시를 할 필요가 없음
+
+## Cache-Control
+캐시 지시어(directives) - 확실한 캐시 무효화
+
+- Cache-Control: no-cache
+  - 데이터는 캐시해도 되지만, 항상 원 서버에 검증하고 사용(이름에 주의!)
+- Cache-Control: no-store
+  - 데이터에 민감한 정보가 있으므로 저장하면 안됨 (메모리에서 사용하고 최대한 빨리 삭제)
+- Cache-Control: must-revalidate
+  - 캐시 만료후 최초 조회시 **원 서버에 검증**해야함
+  - 원 서버 접근 실패시 반드시 오류가 발생해야함 - 504(Gateway Timeout)
+  - must-revalidate는 캐시 유효 시간이라면 캐시를 사용함
+- Pragma: no-cache
+  - HTTP 1.0 하위 호환
+
+## no-cache vs must-revalidate
+no-cache 기본 동작
+
+- 웹 브라우저에서 프록시 캐시 서버로 Cache-Control 이 no-cahce로 요청되었을때는 프록시 캐시서버에서 바로 응답을 하는 것이 아님
+- 웹 브라우저에서 요청시 이전 HTTP 응답코드에 no-cache 가 있었기 때문에, 그 다음 요청시 no-cache로 보낼 수 있음
+- 해당 no-cache 요청을 프록시 서버가 받고 원 서버로의 요청이 필요하므로 다시 원서버로 요청
+- 원 서버에서 검증 시도
+- 응답을 줌 (사용 가능하므로 304 Not Modified)
+
+
+![image](https://user-images.githubusercontent.com/109144975/224562310-8ff0e95a-9e9a-4898-9eae-82f6d0e8096d.png)
+
+## no-cache vs must-revalidate
+
+- 프록시 서버에서 원 서버로 순간 네트워크 단절로 인해 접근이 불가할 경우는 ?
+- 프록시 캐시 응답에서 no-cache 와 must-revalidate 차이가 남
+
+nocache
+- 원 서버에 접근할 수 없는 경우 서버 설정에 따라서 캐시 데이터를 반환할 수 있음
+- 오류보다는 오래된 데이터라도 보여주자 (200 OK)
+
+![image](https://user-images.githubusercontent.com/109144975/224562322-b0b81c89-d31c-4600-9f58-c17a26a5b29e.png)
+
+
+## no-cache vs must-revalidate
+
+must-revalidate
+- 원서버에 접근할 수 없는 경우, **항상 오류**가 발생해야 함
+- 504 Gateway Timeout
+- 만약 송금을 하였는데 이체내역이 업데이트가 안되고 이전 내역(오래된 데이터)이 그대로 보인다면?
+  - 나중에 원서버 접근이 되어 업데이트가 되면 결과적으로는 상관이 없겠지만 혼란을 야기할 수 있음
+
+> 따라서 확실한 캐시 처리를 하기 위해서는
+> 
+> - 서버쪽에서 HTTP 응답 코드 만들경우  Cache-Control 요소(no-cache, must-revalidate)들을 넣어주어야 함
+
+![image](https://user-images.githubusercontent.com/109144975/224562343-3cfdc46c-bf72-488f-a3f8-1b4f37a90a71.png)
