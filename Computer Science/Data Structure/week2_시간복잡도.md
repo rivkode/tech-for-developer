@@ -2,9 +2,10 @@
 
 본 내용은
 
-- 유용재 교수님의 수업 내용
+- 유용재 교수님의 [자료구조 2주차](https://www.youtube.com/watch?v=-kjd6PPeihw&t=5841s)
 
 을 정리한 내용입니다.
+
 
 ![image](https://user-images.githubusercontent.com/109144975/223969359-84f08b11-c378-4278-9159-55c15136699d.png)
 
