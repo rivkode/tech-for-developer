@@ -111,20 +111,55 @@ fibo_func(10)
 
 위 과정을 Stack 차원에서 접근해본다면 ?
 
+![image](https://user-images.githubusercontent.com/109144975/229867598-c23d2b41-d95e-4f9f-a6ce-776d7990af2c.png)
+
+
+![image](https://user-images.githubusercontent.com/109144975/229867876-e570d0c5-d0ca-4970-b5d6-64c640d8b09c.png)
 
 
 
+![image](https://user-images.githubusercontent.com/109144975/229818558-a962f9a8-ea06-480a-9d28-5413c2c6fdde.png)
+
+prev 와 next가 필요했던 Linked List..
+
+Stack은 더 단순하게 갈 수 없을까 ?
+
+```python
+
+# 동적 배열을 활용한 Python에서의 stack 생성
+stack = list()
+
+# stack에 새로운 원소를 push
+stack.append(3)
+
+# stack의 최상단 원소를 pop
+stack.pop()
+
+# stack의 최상단 원소를 peek
+stack[-1]
+
+```
+
+
+![image](https://user-images.githubusercontent.com/109144975/229819280-e2f97132-5f0a-48aa-a379-8d67cfde1f82.png)
+
+
+![image](https://user-images.githubusercontent.com/109144975/229819612-57f99560-c61b-4553-bb53-3b0151c4699b.png)
+
+![image](https://user-images.githubusercontent.com/109144975/229819677-3e632687-9e0b-4ee2-8274-4d67acf2c8d3.png)
 
 
 
+![image](https://user-images.githubusercontent.com/109144975/229819815-6528cee4-9990-4120-bc3f-104640bb82dc.png)
+
+- (9-7) * (1+3) = 2 * 4 = 8
 
 
+![image](https://user-images.githubusercontent.com/109144975/229819893-27a39105-1d92-47c7-89ef-e2939fe1b56b.png)
 
-
-
-
-
-
+> 숫자의 연산은 두 수에서만 일어나므로 수가 입력될 경우 stack에 push 연산자를 만난 경우
+> 
+> 두개의 수를 pop 하여 연산 후 결과를 다시 push
 
 
 ## 스택에 대한 구현
