@@ -13,6 +13,8 @@
 ![image](https://user-images.githubusercontent.com/109144975/223964710-581e9e0b-ebe0-4a89-9207-307163c8811e.png)
 
 
+# 시간복잡도
+
 ## 시간 복잡도 뜻
 
 시간 복잡도란 ?

@@ -2,11 +2,13 @@
 
 본 내용은
 
-- 유용재 교수님의 [자료구조 2주차](https://www.youtube.com/watch?v=-kjd6PPeihw&t=5841s)
+- 유용재 교수님의 [자료구조 3주차](https://www.youtube.com/watch?v=-kjd6PPeihw&t=5841s)
 
 을 정리한 내용입니다.
 
 ![image](https://user-images.githubusercontent.com/109144975/225552568-b89e3a9f-093a-497f-aaca-f6de81843b03.png)
+
+# Linked List와 연결형 자료구조
 
 목차
 - 정적 배열과 동적 배열
