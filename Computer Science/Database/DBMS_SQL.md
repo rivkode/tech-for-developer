@@ -525,10 +525,12 @@ select count(*) from city right join country on city.CountryCode = country.Code;
 
 아래 그림에서 볼 수 있듯
 
-- city 테이블에는 존재하지만 country가 없는 나라 즉 **도시에는 속하지만 country는 NULL 값인 레코드는 0개 인것을 알 수 있지만**
-- country 테이블에는 존재하지만 도시가 하나도 없는 나라 즉 **소속국가가 없는 도시는 7개(4079 - 4086)가 있다**
+- city 테이블에서 소속 국가가 없는 도시는 0개이다
+- city 테이블 기준 CountryCode 컬럼과 country 테이블의 Code가 같을 경우에만 count
+- country 테이블 기준 CountryCode 와 Code가 같은 경우에만 count
 
-![](https://user-images.githubusercontent.com/109144975/218303521-ff06ad54-c597-4f06-b13b-5d663f7cb051.png)
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/09bfba4c-c670-4504-8ec5-27ee6b00e553)
+
 
 <br>
 
