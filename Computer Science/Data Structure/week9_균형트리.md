@@ -84,4 +84,60 @@ AVL Tree란
 
 이에 대한 해결 방안은 위와 같습니다
 
-여기서의 핵심은 모든 Node에 대해서 
+여기서의 핵심은
+- 각 형태에 대해서 규칙이 존재하며 부모 Node가 되는 Node를 빨리 찾아서 트리형태를 만들어 주는 것입니다
+
+## AVL Tree에서의 연산
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/d83049f0-08c2-4362-b9a6-c37f98550007)
+
+AVL Tree 에서의 Node 삽입도 마찬가지로 매 Node가 추가 될 때마다 Balance Factor의 값이 1을 넘는 Node가 존재하는지 추적해나가며
+
+만약 균형이 무너지는 부분이 발생할 경우 **해당하는 지점을 찾아** 균형화를 진행합니다
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/99beaf7a-bbf4-47b8-b91d-26ce268dda80)
+
+AVL Tree 에서의 Node 삭제도 삽입과 마찬가지로 Balance Factor값을 추적해나가며 균형화를 진행합니다
+
+## Red-Black Tree의 이해
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/ebf287d3-9005-46ca-af8d-9491811aeb1d)
+
+일반적인 이진 Tree 의 형태를 가지며 모든 Node는 리프 Node를 가지며 이를 NIL이라 부릅니다
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/4cc25d4d-4b85-4f73-b02e-44b2ca333086)
+
+이진 탐색 Tree 이며 모든 Node는 Red 이거나 Black 색상을 가지며 아래 성질을 반드시 만족해야 합니다
+
+- Root Node 와 NIL은 모두 Black 이여야 합니다
+- Root Node에서 임의의 NIL 까지 경로에서 RED Node는 연속해서 존재할 수 없습니다
+- Root Node에서 임의의 NIL 까지 경로에서 Black Node의 수는 동일해야 합니다 (NIL 도 포함)
+
+
+## Red-Black Tree에서의 삽입, 삭제
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/1deacf8f-9691-45d9-b494-f4689af51311)
+
+Recoloring 은
+- 삽입을 시도한 Node 의 부모 Node 와 삼촌 Node가 **모두 Red 인 경우** Node의 색상을 재배색 함으로써 Red-Black Tree의 성질을 유지하는 것을 의미합니다
+
+Recoloring 방법은
+- 부모 Node와 삼촌 Node를 **Black 색상**으로 변경하며 조부모 Node의 색상을 **Red 색상**으로 변경함으로써 Black 의 수를 동일하게 가져가는 것을 목표로 합니다
+
+예외인 경우
+- 조부모가 Root Node인 경우 Black 을 유지
+- 재배색으로 인하여 Red가 연속으로 발생할 경우 재배치(Restructuring) 및 재배색(Recoloring)
+
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/e0efef12-0706-462d-9d9b-9dc945516cfd)
+
+Restructuring 은
+- 삽입을 시도한 Node의 부모 Node는 Red 색상이나 삼촌 Node가 Black인 경우
+  - 위 사진에서는 7 Node의 오른쪽 자식이 NIL으로 Black 색상이므로 3 Node의 삼촌 Node가 Black이라 할 수 있다
+
+Restructuring 방법은
+- 해당 묶음을 균형화 한 후 자식 Node는 Red로 배색, 부모 Node는 Black으로 배색하여 재배치 한다
+
+![image](https://github.com/rivkode/tech-for-developer/assets/109144975/d05d477a-f28d-48bf-9f06-b2e4d5897f8a)
+
+2, 1, 8, 9, 7, 3, 6을 순서대로 삽입하여 Red-Black Tree를 구성할 경우 위와 같이 나타낼 수 있다
