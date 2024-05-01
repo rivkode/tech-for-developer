@@ -231,6 +231,26 @@ INSERT INTO
 
 <br>
 
+---
+
+농협 문제
+
+sql에서 만약 category 가 0이면 "결제" 1이면 "취소" 라고 반환하고싶을 경우의 SQL
+
+```sql
+SELECT
+    CASE
+        WHEN category = 0 THEN '결제'
+        WHEN category = 1 THEN '취소'
+        ELSE '기타'
+    END AS category_status
+FROM
+    your_table;
+```
+
+
+
+---
 
 **SELECT 문**
 
