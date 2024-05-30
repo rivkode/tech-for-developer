@@ -1,6 +1,6 @@
 NCP 문서 읽기
 
-전체적인 순서
+# 전체적인 순서
 
 1. 서버 생성
 2. 포트 포워딩, 공인 IP 설정
@@ -12,7 +12,12 @@ NCP 문서 읽기
    a. 접속시 putty 사용
 6. 서버 사용
 
-linux 환경에서 java 설치
+todo
+1. java 설치
+2. docker 설치
+3. docker compose 실행
+
+# linux 환경에서 java 설치
 
 1. sudo  권한으로 apt 업데이트 후 openjdk 17버전을 설치한다
 sudo apt update
@@ -38,7 +43,7 @@ echo $JAVA_HOME
 ```
 
 
-docker 설치
+# docker 설치
 
 sudo apt-get update
 
@@ -78,7 +83,7 @@ git clone 프로젝트
 
 application.properties, docker-compose.yml, Dockerfile 추가
 
-docker compose 캐시 하지 않고 빌드하기
+# docker compose 캐시 하지 않고 빌드하기
 
 ./gradlew build -x test
 
