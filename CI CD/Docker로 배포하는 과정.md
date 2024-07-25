@@ -25,3 +25,11 @@
 - 애플리케이션 실행 / docker run
 
 위 내용을 자동화 하는것이 CI/CD
+
+위 내용을 정리한 자료
+
+[Docker 컨테이너로 Spring, MySQL 연동](https://velog.io/@rivkode/Docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88%EB%A1%9C-Spring-MySQL-%EC%97%B0%EB%8F%99)
+[Docker compose 로 Spring, MySQL 연동하기 (에러 : docker: 'compose' is not a docker command, docker desktop 삭제 및 설치)](https://velog.io/@rivkode/Docker-compose-%EB%A1%9C-Spring-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0-%EC%97%90%EB%9F%AC-docker-compose-is-not-a-docker-command-docker-desktop-%EC%82%AD%EC%A0%9C-%EB%B0%8F-%EC%84%A4%EC%B9%98)
+[Github Action, Docker compose를 활용한 배포 자동화 CI/CD + (Spring boot, MySQL)](https://velog.io/@rivkode/Github-Action-Docker-compose%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%B0%B0%ED%8F%AC-%EC%9E%90%EB%8F%99%ED%99%94-CICD-Spring-boot-MySQL)
+[Docker Nginx에서 HTTPS를 위한 SSL 인증서 적용 (Let's encrypt, Docker compose)](https://velog.io/@rivkode/Docker-Nginx%EC%97%90%EC%84%9C-HTTPS%EB%A5%BC-%EC%9C%84%ED%95%9C-SSL-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EC%A0%81%EC%9A%A9-Lets-encrypt-Docker-compose)
+
