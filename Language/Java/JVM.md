@@ -69,3 +69,14 @@ Jvm은 크게 3가지 영역으로 구분되게 됩니다.
 바이트코드를 읽고 클래스 정보를 메모리의 heap method 영역에 저장하는 클래스 로더
 실행중인 프로그램의 정보가 올라가있는 메모리
 바이트코드를 네이티브코드로 변환시켜주고 gc 를 실행하능 실행엔진이 있습니다.
+
+주요 키워드
+
+- Young Only Phase, Space Reclamation Phase
+- Stop The World
+- Remembered Set
+- IHOP
+- Minor, Major, Mixed GC
+- Young Only Phase, Space Reclamation Phase
+- Region
+- Garbage First
