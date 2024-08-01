@@ -80,3 +80,27 @@ Jvm은 크게 3가지 영역으로 구분되게 됩니다.
 - Young Only Phase, Space Reclamation Phase
 - Region
 - Garbage First
+
+G1GC Cycle
+
+먼저 Cycle에 대한 설명을 한 뒤 Minor GC 와 Major GC에 대해 얘기해보도록 하겠습니다.
+
+위 사진은 G1GC 알고리즘의 Phase를 표현하고 있고 각 원은 Stop the world 가 발생한 것을 표현한 것입니다.
+
+파란 원은 Minor GC가 진행함에 따라 STW가 발생한 것이고, 주황원은 Major GC가 진행되면서 객체를 마킹하며 생긴 것이고, 빨간 원은 Mixed GC를 진행하며 STW가 발생하는 것입니다.
+
+
+Young Only Phase에서는 빈 Region인 Garbage를 마킹하는 단계이며 공간회수 단계는 마킹한 메모리를 회수하는 단계입니다.
+
+파란색 원에서 보다시피 Minor GC가 계속적으로 수행되다가 (Initiation Heap Occupancy Percent) 인 IHOP 지정값을 초과하는 순간 Major GC가 시작됩니다.
+
+Major GC의 첫 단계는 Initial Mark 이며 Minor GC와 동시에 수행이 됩니다. 그리고 이때 STW가 발생합니다. 그래서 저 시점에 다른 원 보다 크기가 큰 것을 확인할 수 있습니다.
+
+그 이후 Minor GC와 Concurrent Mark 가 동시에 수행됩니다. 이때 Remark 가 수행되는 순간 다른 작업들은 멈추게 되고 STW가 발생합니다. 그 이후 Clean up 도 수행이 됩니다.
+
+그리고 이제 마킹한 공간들에 대해 메모리를 회수하는 단계가 시작됩니다.
+이 단계에서는 Mixed  GC가 수행되는데 Mark 한 공간들만 찾아가므로 STW 빈도가 많이 줄며 시간도 빠르게 수행되는 특징이 있습니다.
+
+공간회수가 끝나면 다시 Young Only phase로 돌아가서 Minor GC가 수행되는 형태로 동작하게 됩니다.
+
+이제 Minor GC와 Major GC 의 단계들을 조금 더 살펴보겠습니다.
