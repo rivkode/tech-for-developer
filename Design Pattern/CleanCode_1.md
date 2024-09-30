@@ -6,11 +6,15 @@
 
 # 1장 깨끗한 코드
 
+<br>
+
 ```
 이 안에 들어있는 내용은 책에 있는 내용이다.
 ```
 
 아래에 적는 내용은 나의 생각
+
+<br>
 
 <br>
 
@@ -49,6 +53,8 @@
 
 작은 기능 하나를 확실하게 하는게 좋다고 하는데, 작은 기능을 어떻게 정의하면 좋을까 ?
 
+<br>
+
 ```
 중복 줄이기, 표현력 높이기, 초반부터 간단한 추상화 고려하기. 내게는 이 세 가지가 깨끗한 코드를 만드는 비결이다.
 ```
@@ -63,6 +69,8 @@
 추상화는 아직 많이 어려운 것 같다. 오늘 회사 코드를 보았는데, 추상화 클래스가 매우 많았다. 그 코드에 녹아든 개념들을 잘 이해하면서
 코드를 작성할 때 잘 녹여보자.
 
+
+<br>
 
 ```
 보이 스카우트 규칙
@@ -81,6 +89,8 @@
 
 하지만 이는 어찌보면 당연한 얘기기도 하다.
 
+<br>
+
 ```
 새 코드를 짜면서 우리는 끊임없이 기존 코드를 읽는다. 비율은 10 : 1 이 넘는다. 이렇게 읽기 비율이 높으므로 읽기 쉬운 코드는 매우 중요하다.
 ```
@@ -96,6 +106,8 @@
 
 # 2장 의미있는 이름
 
+<br>
+
 ```
 의도를 분명히 밝혀라
 
@@ -107,13 +119,33 @@ int daysSinceModification;
 int fileAgeInDays;
 ```
 
+위 코드에서 `d` 가 가지는 의므를 알 수 있는 사람이 있을까 ? 절대 없다.. 그리고 애초에 알려고 하면 안된다.
+
+저렇게 주석으로 적어놓는 것도 큰 문제다. 왜냐고 묻는다면 .. 저 의미를 알기 위해 주석을 찾아본다는 것은 말이 안되니까.
+
+아래에 보이는 것 처럼 가능하면 의미를 가지도록 하는 것이 좋다.
+
+<br>
+
 ```
 읽는 사람들을 헷갈리게 하는 단어를 사용하지 말자
 
 영어 대문자 O 와 소문자 l 은 단독으로 사용은 하지말자.
 ```
 
-# 3장
+`O, o, 0, l I`
+
+`o의 대문자, o의 소문자 o, 숫자 0, L의 소문자 l, i의 대문자 I `
+
+어떤가 .. 보기에 비슷하여 헷갈리지 않는가 ? 단독으로 사용하지 말자..
+
+<br>
+
+<br>
+
+# 3장 함수
+
+<br>
 
 ```
 작게 만들어라
@@ -123,6 +155,13 @@ int fileAgeInDays;
 적절한 함수의 줄은 2 - 4줄 정도가 적당하다.
 ```
 
+함수가 4줄을 넘어간다면 이전의 1, 2 번째에 했던 로직들을 기억하기 위해 다시 되돌아가서 봐야할 것 같다.
+
+그러면 이 부분이 또 비용이 될 수 있으므로 4줄 이하를 제안한다고 생각한다.
+
+당연하게도 함수가 줄이 짧을 수록 로직이 단순해지고 깔끔해지기도 한다. 
+
+<br>
 
 ```
 한가지만 해라
@@ -130,3 +169,157 @@ int fileAgeInDays;
 함수는 한 가지를 해야 한다. 그 한 가지를 잘 해야한다. 그 한 가지만을 해야 한다.
 ```
 
+코드는 결국 이야기의 흐름이다. 함수가 한가지만 해야하는 이유를 잘 생각해보면, 하나의 주제에 대해 여러 이야기 내용을 담으려고
+한다면 이 이야기는 중구난방이 되어버릴 것이다.
+
+예를 들어 작은 클래스 단위로 각 클래스가 가지고 있는 함수의 흐름을 머릿속으로 떠올려 보았을 때, 그 함수들이 가지는 연결고리들을
+연결지으면서 흐름을 연상하게 될 것이다.
+
+이때, 이 연상의 흐름이 되는 단위는 함수가 될텐데 이 함수 내에서 만약 한 가지가 아니라 여러가지의 일들을 한다면 그때부터는
+머리속이 복잡해질 것이다.
+
+이 연상의 흐름이 되는 함수 단위를 잘게 쪼개어 머릿속으로 더 이해하기 쉽고 명확하게 한다면 더 읽기 쉬운 이해하기 쉬운 코드가 될 것이다.
+
+<br>
+
+```
+함수 당 추상화 수준은 하나로
+
+함수가 확실히 '한 가지' 작업만 하려면 함수 내 모든 문장의 추상화 수준이 동일해야 한다.
+
+예를 들어 `getHtml()` 은 추상화수준이 높다고 할 수 있고,
+`String pagePathName = PathParser.render(pagepath);` 는 추상화 수준이 중간이며,
+`.append("\n")` 은 추상화 수준이 낮다고 할 수 있다.
+
+만약 위 로직이 하나의 함수내에 있다면 읽는 사람은 그만큼 추상화 수준을 높였다가 낮췄다가를 반복해야 한다.
+
+이는 머릿속을 뒤섞기 시작할 것이고, 깨어진 창문처럼 사람들이 함수에 세부사항을 점점 추가하게 된다.
+```
+
+아래에서 그 예시를 보자.
+
+코드를 작성하다 든 생각인데 원래는 추상화 부분만 작성하려 했으나, class나 생성자 등 
+다른 부분을 생략하기 보단 이 내용은 중요한 예시 중 하나이므로 최대한 생략하지 않고 자세하게
+작성해보았다.
+
+여러번 읽어보고 추상화 수준이 동일하다는게 어떤 의미를 가지는지 스스로 생각해보고 고민해보자.
+
+```java
+public class SetupTearDownIncluder {
+    private PageDAte pageData;
+    private boolean isSuite;
+    private WikiPage testPage;
+    private StringBuffer newPageContent;
+    private PageCrawler pageCrawler;
+    
+    public static String render(PageData pageData) throws Exception {
+        return render(pageData, false);
+    }
+    
+    public static String render(PageData pageData, boolean isSuite) throws Exception {
+        return new SetupTearDownIncluder(pageData).render(isSuite);
+    }
+    
+    private SetupTearDownIncluder(PageData pageData) {
+        this.pageData = pageData;
+        testPage = pageData.getWikiPage();
+        pageCrawler = testPage.getPageCrawler();
+        newPageContent = new StringBuffer();
+    }
+    
+    private String render(boolean isSuite) throws Exception {
+        this.isSuite = isSuite;
+        if (isSuite) {
+            includeSetupAndTearDownPages();
+        }
+        return pageData.getHtml();
+    }
+    
+    private boolean isTestPage() throws Exception {
+        return pageData.hasAttribute("Test");
+    }
+    
+    private void includeSetupAndTearDownPages() throws Exception {
+        includeSetupPages();
+        includePageContent();
+        includeTeardownPages();
+        updatePageContent();
+    }
+    
+    private void includeSetupPages() throws Exception {
+        if (isSuite) {
+            includeSuiteSetupPage();
+        }
+        includeSetupPage();
+    }
+    
+    private void includeSuiteSetupPage() throws Exception {
+        include(SuiteResponder.SUITE_SETUP_NAME, "-setup");
+    }
+    
+    private void includeSetupPage() throws Exception {
+        include("setup", "-setup");
+    }
+    
+    private void includePageContent() throws Exception {
+        newPageContent.append(pageData.getContent());
+    }
+    
+    private void includeTeardownPages() throws Exception {
+        includeTeardownPage();
+        if (isSuite) {
+            includeSuiteTeardownPage();
+        }
+    }
+    
+    private void includeTeardownPage() throws Exception {
+        include("TearDown", "-teardown");
+    }
+    
+    private void includeSuiteTeardownPage() throws Exception {
+        include(SuiteResponder.SUITE_TEARDOWN_NAME, "-teardown");
+    }
+    
+    private void updatePageContent() throws Exception {
+        pageData.setContent(newPageContent.toString());
+    }
+    
+    private void include(String pageName, String arg) throws Exception {
+        WikiPage inheritedPage = findInheritedPage(pageName);
+        if (inheritedPage != null) {
+            String pagePathName = getPathNameForPage(pageName);
+            buildIncludeDirective(pagePathName, arg);
+        }
+    }
+    
+    private WikiPage findInheritedPage(String pageName) throws Exception {
+        return PageCrawlerImpl.getInheritedPage(pageName, testPage);
+    }
+    
+    private String getPathNameForPage(WikiPage page) throws Exception {
+        WikiPagePath pagePath = pageCrawler.getFullPath(page);
+        return PathParser.render(pagePath);
+    }
+    
+    private void buildIncludeDirective(String pagePathName, String arg) {
+        newPageContent
+                .append("\n!include ")
+                .append(arg)
+                .append(" .")
+                .append(pagePathName)
+                .append("\n");
+    }
+}
+```
+
+2번 읽고, 3번 읽어보자. 클린코드에서 말하고자하는 추상화 수준이 어떤 것을 의미하는지 이해가 가는가 ?
+
+`추상화 수준` 은 별개 아니고, 각 함수들의 로직 레이어이다.
+
+다시 말해보면
+
+가장 크게는 우리가 패키지 단위로 추상화 수준을 결정할 수 있다. 그리고 패키지 내 클래스, 클래스 내 함수, 함수 내 다시 함수, 함수 다시 함수 ...
+
+로 이어지게 된다.
+
+여기서 각 지점들에 대해 유사한 수준의 동작을 하게끔 결정하는 것이다.
