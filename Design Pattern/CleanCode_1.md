@@ -204,9 +204,13 @@ int fileAgeInDays;
 
 여러번 읽어보고 추상화 수준이 동일하다는게 어떤 의미를 가지는지 스스로 생각해보고 고민해보자.
 
+<br>
+
+<br>
+
 ```java
 public class SetupTearDownIncluder {
-    private PageDAte pageData;
+    private PageData pageData;
     private boolean isSuite;
     private WikiPage testPage;
     private StringBuffer newPageContent;
@@ -310,6 +314,7 @@ public class SetupTearDownIncluder {
                 .append("\n");
     }
 }
+
 ```
 
 2번 읽고, 3번 읽어보자. 클린코드에서 말하고자하는 추상화 수준이 어떤 것을 의미하는지 이해가 가는가 ?
@@ -323,3 +328,109 @@ public class SetupTearDownIncluder {
 로 이어지게 된다.
 
 여기서 각 지점들에 대해 유사한 수준의 동작을 하게끔 결정하는 것이다.
+
+<br>
+
+```
+Switch 문은 작게 만들기 어렵다.
+
+다형성을 이용하여 저차원 클래스에 숨기고 반복하지 않도록 하자.
+```
+
+<br>
+
+```
+서술적인 이름을 사용하자.
+
+testableHtml을 SetupTeardownIncluder 로 변경하였다.
+includeSetupAndTeardownPages 등 서술적인 이름을 사용하였다.
+
+이름이 길어도 괜찮다. 길고 서술적인 이름이 짧고 어려운 이름, 길고 서술적인 주석보다 좋다.
+```
+
+<br>
+
+```
+함수 인수
+
+함수에서 이상적인 인수 개수는 0개다.
+
+그 다음 1개, 그 다음은 2개다. 3개는 가능하면 피하는 편이 좋다.
+
+4개 이상은 특별한 이유가 필요하다.
+```
+
+`includeSetupPageInto(newPageContent);` 는 함수 이름과 인수 사이에 추상화 수준이 다르다.
+
+<br>
+
+```
+오류 코드보다 예외를 사용하라
+
+if (deletePage(page) == E_OK) {
+    if (registry.deleteReference(page.name) == E_OK) {
+    ...
+    }
+}
+
+위와 같이 if 문으로 오류를 처리하기 보단 예외를 사용하면 오류 처리 코드가 원래 코드에서 분리되므로 
+코드가 깔끔해진다.
+
+try {
+    deletePage(page);
+    registry.deleteReference(page.name);
+    configKeys.deleteKey(page.name.makeKey);
+}
+catch (Exception e) {
+    logger.log(e.getMessage());
+}
+
+---
+
+하지만 위 내용은 아래와 같이 변경할 수 있다.
+
+---
+
+public void delete(Page page) {
+
+    try {
+        deletePageAndALlReferences(page);
+    } catch (Exception e) {
+        logErrror(e);
+    }
+}
+
+private void deletePageAndAllReferences(Page page) throws Exception {
+    deletePage(page);
+    registry.deleteReference(page.name);
+    configKeys.deleteKey(page.name.makeKey());
+}
+
+private void logError(Exception e) {
+    logger.log(e.getMessage());
+}
+
+```
+
+마지막 delete() 함수를 보면 추상화 레벨도 유사하여 코드가 잘 읽히고, try catch 문이 있는 delete 함수도 깔끔하게 읽힌다.
+
+함수의 추상화 수준을 잘 보고, try catch 문을 따로 함수로 분리하는 내용, 에러 로그를 따로 처리하는 내용을 잘 살펴보자.
+
+물론 `logger.log(e.getMessage());` 부분은 하나밖에 없는데 굳이 함수로 분리해야 하나 ? 라고 생각할 수 있지만 추상화 수준이
+다르므로 분리했다고 생각한다.
+
+<br>
+
+```
+결론
+```
+
+프로그래머는 이야기를 작성하는 사람이다. 이야기는 독자로 하여금 편하고 잘 읽힐 수 있도록 작성해야하는 의무가 있다.
+그러기 위해서 함수를 잘게 잘 나누고 추상화 수준을 비슷하게 갖추며 이름을 서술적으로 잘 지어보자.
+
+
+# 4장 주석
+
+<br>
+
+
